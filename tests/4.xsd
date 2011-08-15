@@ -1,0 +1,7 @@
+<xs:element name="choice">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[xyz]"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>

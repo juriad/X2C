@@ -1,0 +1,16 @@
+<xs:group name="persongroup">
+	<xs:sequence>
+		<xs:element name="firstname" type="xs:string"/>
+		<xs:element name="lastname" type="xs:string"/>
+		<xs:element name="birthday" type="xs:date"/>
+	</xs:sequence>
+</xs:group>
+
+<xs:element name="person" type="personinfo"/>
+
+<xs:complexType name="personinfo">
+	<xs:sequence>
+		<xs:group ref="persongroup"/>
+		<xs:element name="country" type="xs:string"/>
+	</xs:sequence>
+</xs:complexType>

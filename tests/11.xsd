@@ -1,0 +1,9 @@
+<xs:element name="shoesize" type="shoetype"/>
+
+<xs:complexType name="shoetype">
+	<xs:simpleContent>
+		<xs:extension base="xs:integer">
+			<xs:attribute name="country" type="xs:string" />
+		</xs:extension>
+	</xs:simpleContent>
+</xs:complexType>

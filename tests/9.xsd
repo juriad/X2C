@@ -1,0 +1,9 @@
+<xs:element name="product">
+	<xs:complexType>
+		<xs:complexContent>
+			<xs:restriction base="xs:integer">
+				<xs:attribute name="prodid" type="xs:positiveInteger"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:element>
