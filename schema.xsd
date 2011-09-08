@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="tv">
+		<xsd:complexType>
+			<xsd:attribute name="date" type="xsd:string"></xsd:attribute> 
+			<xsd:attribute name="source-info-url" type="xsd:string"></xsd:attribute> 
+			<xsd:attribute name="source-info-name" type="xsd:string"></xsd:attribute> 
+			<xsd:attribute name="source-data-url" type="xsd:string"></xsd:attribute> 
+			<xsd:attribute name="generator-info-name" type="xsd:string"></xsd:attribute> 
+			<xsd:attribute name="generator-info-url" type="xsd:string"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

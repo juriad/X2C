@@ -1,0 +1,7 @@
+#include <QtCore/QtCore>
+#include "VeryComplex.h"
+
+int main(int argc, char* argv[]) {
+	QFile file("/home/adam/programming/workspace/X2C/trivial.xml");
+	VeryComplex *c = VeryComplex::fromFile(file);
+}	

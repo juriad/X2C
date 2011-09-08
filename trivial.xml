@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:veryComplex xmlns:tns="http://www.example.org/trivial"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/trivial trivial.xsd ">
+
+	<tns:simpleElementCustom>jedna</tns:simpleElementCustom>
+	<tns:anon30>
+		<tns:anon29>
+			<tns:anon27>dva</tns:anon27>
+			<tns:anon28>tri</tns:anon28>
+		</tns:anon29>
+	</tns:anon30>
+</tns:veryComplex>

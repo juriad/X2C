@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tv generator-info-name="TVxb/1.0116" generator-info-url="http://www.tvxb.com/"
+	xmlns="http://juriad.local/xmltv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://juriad.local/xmltv xmltv.xsd">
+	<channel id="animalplanet_sk">
+		<display-name lang="sk">Animal Planet</display-name>
+		<icon
+			src="http://www.lyngsat-logo.com/logo/tv/aa/animal_planet_europe.jpg" />
+		<url>http://frantisheq.sk/</url>
+	</channel>
+	<channel id="axn_sk">
+		<display-name lang="sk">AXN</display-name>
+		<icon src="http://www.lyngsat-logo.com/logo/tv/aa/axn_cz.jpg" />
+		<url>http://frantisheq.sk/</url>
+	</channel>
+	<programme start="20110824010000 +0200" stop="20110824020000 +0200"
+		channel="viasathistoryhd_sk">
+		<title lang="sk">Vzhůru na německé křižníky!</title>
+		<episode-num system="onscreen">2</episode-num>
+		<desc>(Hunt the Kaiser's Cruisers!) 
+		Příběh o tom, jak se Britové pomstili na německých císařských křižnících, 
+		které Británii za první světové války uštědřily nečekanou porážku v bitvě 
+		u Coronelu. Německý dokument z roku 2006 - WebSupport.sk</desc>
+	</programme>
+	<programme start="20110824020000 +0200" stop="20110824030000 +0200"
+		channel="viasathistoryhd_sk">
+		<title lang="sk">Po stopách Herkulanea</title>
+		<desc>(Herculaneum Uncovered) 
+		Prostřednictvím příběhu Herkulanea, sesterského města Pompejí, rovněž pohřbeného 
+		výbuchem Vesuvu v roce 79 po Kristu, dokument zkoumá, jaké škody by proslulá 
+		sopka dokázala napáchat dnes. Britský dokument z roku 2006 - WebSupport.sk</desc>
+	</programme>
+	<programme start="20110824030000 +0200" stop="20110824040000 
+		+0200"
+		channel="viasathistoryhd_sk">
+		<title lang="sk">Eduardovská farma</title>
+		<episode-num system="onscreen">11</episode-num>
+		<desc>(Edwardian Farm) Tým 
+		z Viktoriánské farmy - historička Ruth Goodmanová a archeologové Alex Langlands 
+		a Peter Ginn - stráví rok na eduardovské farmě, kde se budou potýkat se zkouškami 
+		a nástrahami tehdejšího života. Britský dokumentární seriál z roku 2010 - 
+		WebSupport.sk</desc>
+		<sub-title>ahoj</sub-title>
+	</programme>
+</tv>

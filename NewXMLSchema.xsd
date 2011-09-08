@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/NewXMLSchema"
+	xmlns:tns="http://www.example.org/NewXMLSchema" elementFormDefault="qualified">
+
+	<element name="root" type="tns:rootType"></element>
+
+	<complexType name="rootType">
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="id" type="string"></attribute>
+	</complexType>
+
+	<element name="sub" type="tns:subType"></element>
+
+	<complexType name="subType" block="restriction">
+		<complexContent>
+			<restriction base="tns:rootType">
+				<attribute name="id" type="string" use="prohibited"></attribute>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+	<element name="a" type="tns:address"></element>
+
+	<element name="aa" type="tns:aa"></element>
+
+	<complexType name="aa">
+		<all minOccurs="0">
+			<element name="street" type="string" />
+			<element name="city" type="string" />
+		</all>
+	</complexType>
+
+	<complexType name="address">
+		<choice>
+			<element name="street" type="string" />
+			<element name="city" type="string" />
+		</choice>
+		<attribute ref="tns:a" default="ad"></attribute>
+	</complexType>
+
+	<element name="add" type="tns:USAddress">
+	</element>
+
+	<complexType name="xx" abstract="true"></complexType>
+
+	<complexType name="USAddress">
+		<complexContent>
+			<extension base="tns:address">
+				<sequence maxOccurs="1" minOccurs="0">
+					<element name="state" type="string" />
+					<element name="state" type="string" />
+				</sequence>
+				<attribute name="country" type="string" fixed="US" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="r">
+		<complexType>
+			<simpleContent>
+				<extension base="tns:s">
+					<attributeGroup ref="tns:ssg"></attributeGroup>
+				</extension>
+			</simpleContent>
+		</complexType>
+	</element>
+
+	<attributeGroup name="ssg">
+		<attribute ref="tns:ss"></attribute>
+	</attributeGroup>
+
+	<attribute name="ss">
+		<simpleType>
+			<restriction base="string"></restriction>
+		</simpleType>
+	</attribute>
+
+	<simpleType name="myInteger">
+		<restriction base="integer">
+			<minInclusive value="10000" />
+			<maxInclusive value="99999" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="listOfMyIntType">
+		<list itemType="tns:myInteger" />
+	</simpleType>
+
+	<simpleType name="a">
+		<list itemType="string">
+		</list>
+	</simpleType>
+
+	<attribute name="a" default="af" type="string">
+	</attribute>
+
+	<simpleType name="USState">
+		<restriction base="string">
+			<enumeration value="AK" />
+			<enumeration value="AL" />
+			<enumeration value="AR" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="zipUnion">
+		<union memberTypes="tns:USState integer" />
+	</simpleType>
+
+	<simpleType name="zipList">
+		<list itemType="tns:zipUnion" />
+	</simpleType>
+
+	<complexType name="com">
+		<sequence>
+			<element name="zips" type="tns:s"></element>
+			<group ref="tns:g1"></group>
+		</sequence>
+	</complexType>
+
+	<simpleType name="s">
+		<restriction base="string">
+		</restriction>
+	</simpleType>
+
+	<attribute name="x"></attribute>
+
+	<element name="zips" type="tns:zipList"></element>
+
+	<group name="g">
+		<all>
+			<element name="e" type="string"></element>
+			<element name="f" type="string"></element>
+		</all>
+	</group>
+
+	<complexType name="cc">
+		<sequence minOccurs="0">
+			<element name="ccc" type="string"></element>
+			<element name="ddd" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<group name="ga">
+		<all></all>
+	</group>
+
+	<group name="g1">
+		<sequence>
+			<element name="b">
+				<complexType>
+					<sequence minOccurs="0">
+						<group ref="tns:g2"></group>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+
+	<complexType name="f">
+		<attribute ref="tns:a"></attribute>
+	</complexType>
+
+	<complexType name="ff">
+		<complexContent>
+			<extension base="tns:f">
+				<group ref="tns:g2"></group>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ff2">
+		<group ref="tns:g2"></group>
+		<attribute ref="tns:a"></attribute>
+	</complexType>
+
+	<complexType name="fff">
+		<complexContent>
+			<restriction base="tns:ff">
+				<group ref="tns:g2"></group>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ggg">
+		<group ref="tns:ga"></group>
+	</complexType>
+
+	<group name="g2">
+		<sequence>
+			<choice minOccurs="0">
+				<group ref="tns:g1"></group>
+			</choice>
+		</sequence>
+	</group>
+
+
+	<complexType name="dd">
+		<complexContent>
+			<restriction base="tns:cc">
+				<sequence minOccurs="1">
+					<element name="ccc" type="string"></element>
+					<element name="ddd" type="string"></element>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="l1">
+		<complexContent>
+			<restriction base="tns:l2">
+				<sequence>
+					<element ref="tns:loop" minOccurs="1"></element>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="l2">
+		<sequence>
+			<element ref="tns:loop" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<element name="loop">
+		<complexType>
+			<sequence>
+				<element ref="tns:loop" minOccurs="0" maxOccurs="unbounded"></element>
+				<element name="simple" minOccurs="0" maxOccurs="unbounded">
+					<simpleType>
+						<restriction base="string"></restriction>
+					</simpleType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<attribute name="NewAttribute" type="string"></attribute>
+
+	<element name="internationalPrice">
+		<complexType>
+			<complexContent>
+				<restriction base="anyType">
+					<attribute name="currency" type="string" />
+					<attribute name="value" type="decimal" />
+				</restriction>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<simpleType name="ss">
+		<list itemType="string"></list>
+	</simpleType>
+
+	<simpleType name="sss">
+		<restriction base="tns:ss"></restriction>
+	</simpleType>
+
+	<complexType name="at">
+		<attribute ref="tns:a"></attribute>
+	</complexType>
+
+</schema>

@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/trivial"
+	xmlns:tns="http://www.example.org/trivial" elementFormDefault="qualified">
+
+	<simpleType name="simpleRestrictionForward">
+		<restriction base="tns:simpleRestriction"></restriction>
+	</simpleType>
+
+	<simpleType name="simpleRestriction">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<simpleType name="simpleList">
+		<list itemType="tns:simpleRestriction"></list>
+	</simpleType>
+
+	<simpleType name="simpleListForward">
+		<list itemType="tns:anon19"></list>
+	</simpleType>
+
+	<simpleType name="anon19">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<simpleType name="simpleListInner">
+		<list>
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</list>
+	</simpleType>
+
+	<simpleType name="simpleUnion">
+		<union memberTypes="tns:simpleRestriction tns:simpleRestrictionForward"></union>
+	</simpleType>
+
+	<simpleType name="simpleUnionForward">
+		<union memberTypes="tns:simpleRestriction tns:anon20"></union>
+	</simpleType>
+
+	<simpleType name="anon20">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<simpleType name="simpleUnionInner">
+		<union>
+			<simpleType>
+				<restriction base="tns:simpleRestriction"></restriction>
+			</simpleType>
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleUnionMixed">
+		<union memberTypes="string">
+			<simpleType>
+				<restriction base="tns:simpleRestriction"></restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleUnionOne">
+		<union memberTypes="string">
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleUnionOneInner">
+		<union>
+			<simpleType>
+				<restriction base="tns:simpleRestriction"></restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleListUnion">
+		<list itemType="tns:simpleUnion"></list>
+	</simpleType>
+
+	<simpleType name="simpleListUnionInner">
+		<list>
+			<simpleType>
+				<union memberTypes="tns:simpleRestriction"></union>
+			</simpleType>
+		</list>
+	</simpleType>
+
+	<simpleType name="simpleUnionList">
+		<union memberTypes="tns:simpleList tns:simpleListForward"></union>
+	</simpleType>
+
+	<simpleType name="simpleUnionListInner">
+		<union>
+			<simpleType>
+				<list itemType="string"></list>
+			</simpleType>
+			<simpleType>
+				<list itemType="tns:simpleRestriction"></list>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleUnionUnion">
+		<union memberTypes="tns:simpleUnion">
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<simpleType name="simpleUnionListUnion">
+		<union memberTypes="string">
+			<simpleType>
+				<list>
+					<simpleType>
+						<union memberTypes="string">
+							<simpleType>
+								<restriction base="string"></restriction>
+							</simpleType>
+						</union>
+					</simpleType>
+				</list>
+			</simpleType>
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+
+	<complexType name="complexEmpty">
+	</complexType>
+
+	<complexType name="complexSimpleExtension">
+		<simpleContent>
+			<extension base="string"></extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexSimpleExtensionForward">
+		<simpleContent>
+			<extension base="tns:anon1"></extension>
+		</simpleContent>
+	</complexType>
+
+	<simpleType name="anon1">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<complexType name="complexSimpleRestriction">
+		<simpleContent>
+			<restriction base="tns:complexSimpleExtension"></restriction>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexSimpleRestrictionForward">
+		<simpleContent>
+			<restriction base="tns:anon2"></restriction>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="anon2">
+		<simpleContent>
+			<extension base="string"></extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexComplexExtension">
+		<complexContent>
+			<extension base="tns:complexEmpty"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionForward">
+		<complexContent>
+			<extension base="tns:anon3"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="anon3">
+	</complexType>
+
+	<complexType name="complexComplexRestriction">
+		<complexContent>
+			<restriction base="tns:complexEmpty"></restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexRestrictionForward">
+		<complexContent>
+			<restriction base="tns:anon4"></restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="anon4">
+	</complexType>
+
+	<attribute name="globalAttributeString" type="string"></attribute>
+
+	<attribute name="globalAttribute" type="tns:simpleRestriction"></attribute>
+
+	<attribute name="globalAttributeForward" type="tns:anon7"></attribute>
+
+	<simpleType name="anon7">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<attribute name="globalAttributeInner">
+		<simpleType>
+			<restriction base="string"></restriction>
+		</simpleType>
+	</attribute>
+
+	<attributeGroup name="agSimpleInner">
+		<attribute name="agSimple1" type="string"></attribute>
+		<attribute name="agSimple2" type="string"></attribute>
+	</attributeGroup>
+
+	<attributeGroup name="agSimpleInnerForward">
+		<attribute name="agSimple3" type="tns:anon8"></attribute>
+		<attribute name="agSimple4" type="tns:anon9"></attribute>
+	</attributeGroup>
+
+	<simpleType name="anon8">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<simpleType name="anon9">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<attributeGroup name="agSimpleInnerInner">
+		<attribute name="agSimple5">
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="agSimple6">
+			<simpleType>
+				<restriction base="string"></restriction>
+			</simpleType>
+		</attribute>
+	</attributeGroup>
+
+	<attributeGroup name="agSimpleRef">
+		<attribute ref="tns:globalAttribute">
+		</attribute>
+		<attribute ref="tns:globalAttributeForward">
+		</attribute>
+	</attributeGroup>
+
+	<attributeGroup name="agSimpleRefForward">
+		<attribute ref="tns:anon10">
+		</attribute>
+		<attribute ref="tns:anon11">
+		</attribute>
+	</attributeGroup>
+
+	<attribute name="anon10" type="string"></attribute>
+
+	<attribute name="anon11" type="string"></attribute>
+
+	<attributeGroup name="agBackward">
+		<attributeGroup ref="tns:agSimpleRef"></attributeGroup>
+		<attributeGroup ref="tns:agSimpleRefForward"></attributeGroup>
+	</attributeGroup>
+
+	<attributeGroup name="agForward">
+		<attributeGroup ref="tns:anon12"></attributeGroup>
+	</attributeGroup>
+
+	<attributeGroup name="anon12">
+		<attribute ref="tns:globalAttributeForward"></attribute>
+	</attributeGroup>
+
+	<attributeGroup name="anon18">
+		<attributeGroup ref="tns:anon16"></attributeGroup>
+	</attributeGroup>
+
+	<attributeGroup name="agTest">
+		<attribute name="anon13" type="tns:anon1"></attribute>
+		<attributeGroup ref="tns:anon14"></attributeGroup>
+	</attributeGroup>
+
+
+	<attributeGroup name="anon14">
+		<attribute name="anon15" type="tns:simpleRestriction"></attribute>
+		<attribute ref="tns:anon10"></attribute>
+		<attributeGroup ref="tns:anon16"></attributeGroup>
+	</attributeGroup>
+
+	<attributeGroup name="anon16">
+		<attribute name="anon17">
+			<simpleType>
+				<restriction base="tns:anon9"></restriction>
+			</simpleType>
+		</attribute>
+	</attributeGroup>
+
+	<element name="simpleElement" type="string"></element>
+
+	<element name="simpleElementCustom" type="tns:simpleRestriction"></element>
+
+	<element name="simpleElementCustomForward" type="tns:anon21"></element>
+
+	<simpleType name="anon21">
+		<restriction base="string"></restriction>
+	</simpleType>
+
+	<element name="simpleElementCustomInner">
+		<simpleType>
+			<restriction base="string"></restriction>
+		</simpleType>
+	</element>
+
+	<complexType name="anon22">
+		<simpleContent>
+			<extension base="string">
+				<attribute ref="tns:globalAttribute"></attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="anon23">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="innerAttribute1" type="string"></attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<element name="simpleInnerAttribute" type="tns:anon23"></element>
+
+	<complexType name="anon24">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="innerAttribute2" type="tns:simpleRestriction"></attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<element name="simpleInnerAttributeCustom" type="tns:anon24"></element>
+
+	<complexType name="anon25">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="innerAttribute3">
+					<simpleType>
+						<restriction base="string"></restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<element name="simpleInnerAttributeInner" type="tns:anon25"></element>
+
+	<element name="simpleInnerAttributeInnerInner">
+		<complexType>
+			<simpleContent>
+				<extension base="string">
+					<attribute name="innerAttribute4">
+						<simpleType>
+							<restriction base="string"></restriction>
+						</simpleType>
+					</attribute>
+				</extension>
+			</simpleContent>
+		</complexType>
+	</element>
+
+	<element name="complexEmpty" type="tns:complexEmpty"></element>
+
+	<element name="complexEmptyForward" type="tns:anon26"></element>
+
+	<complexType name="anon26">
+	</complexType>
+
+	<element name="complexEmptyInner">
+		<complexType>
+		</complexType>
+	</element>
+
+	<complexType name="complexSimpleExtensionAttribute">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="extensionAttibute1" type="string"></attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexSimpleExtensionAttributeInner">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="extensionAttibute2">
+					<simpleType>
+						<restriction base="string"></restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexSimpleExtensionAttributeRef">
+		<simpleContent>
+			<extension base="string">
+				<attribute ref="tns:globalAttribute">
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionAttribute">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<attribute name="extensionAttibute3" type="string"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionAttributeInner">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<attribute name="extensionAttibute4">
+					<simpleType>
+						<restriction base="string"></restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionAttributeRef">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<attribute ref="tns:globalAttribute">
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionAttribute2Ref">
+		<complexContent>
+			<extension base="tns:complexComplexExtensionAttributeRef">
+				<attribute ref="tns:globalAttributeForward">
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionElementRef">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<sequence>
+					<element ref="tns:complexEmpty"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionElementInner">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<sequence>
+					<element name="anon27" type="string"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionElementInnerCustom">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<sequence>
+					<element name="anon27" type="tns:simpleRestriction"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexExtensionElementInnerCustomInner">
+		<complexContent>
+			<extension base="tns:complexEmpty">
+				<sequence>
+					<element name="anon27">
+						<simpleType>
+							<restriction base="string"></restriction>
+						</simpleType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="complexComplexAlreadyExtension">
+		<complexContent>
+			<extension base="tns:complexComplexExtensionElementInnerCustomInner">
+				<sequence>
+					<element name="anon28">
+						<simpleType>
+							<restriction base="string"></restriction>
+						</simpleType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<attribute name="listAttribute" type="tns:simpleList"></attribute>
+
+	<attribute name="listAttributeInner">
+		<simpleType>
+			<list itemType="string"></list>
+		</simpleType>
+	</attribute>
+
+	<attribute name="listAttributeInnerInner">
+		<simpleType>
+			<list>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</list>
+		</simpleType>
+	</attribute>
+
+	<attribute name="unionAttribute" type="tns:simpleUnion"></attribute>
+
+	<attribute name="unionAttributeInner">
+		<simpleType>
+			<union memberTypes="tns:simpleList string"></union>
+		</simpleType>
+	</attribute>
+
+	<attribute name="unionAttributeInnerInner">
+		<simpleType>
+			<union>
+				<simpleType>
+					<restriction base="tns:simpleList"></restriction>
+				</simpleType>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</union>
+		</simpleType>
+	</attribute>
+
+	<element name="veryComplex">
+		<complexType>
+			<sequence>
+				<element ref="tns:simpleElementCustom"></element>
+				<choice>
+					<element name="anon30">
+						<complexType>
+							<complexContent>
+								<extension base="tns:complexComplexRestriction">
+									<sequence>
+										<element name="anon29" type="tns:complexComplexAlreadyExtension"></element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element ref="tns:simpleElement"></element>
+				</choice>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="loop">
+		<complexType>
+			<sequence>
+				<element ref="tns:loop"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>
