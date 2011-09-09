@@ -48,7 +48,6 @@ public:
 	SimpleType *getSimpleType() {
 		return type;
 	}
-	QString generate();
 private:
 	QString name;
 	Attribute *base;

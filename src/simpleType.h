@@ -20,13 +20,9 @@ public:
 	virtual bool isSimpleValue();
 	virtual bool isList();
 	virtual bool isUnion();
-	virtual QString getDataType() {
-		if (base != NULL) {
-			return ((SimpleType*) base)->getDataType();
-		} else {
-			return "QString";
-		}
-	}
+	virtual QString getDataType();
+	virtual QString generateControl(QString inputString);
+	virtual QString generateSetter(QString inputString, QString outputVariable);
 };
 
 #endif /* SIMPLETYPE_H_ */

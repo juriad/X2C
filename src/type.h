@@ -37,7 +37,6 @@ public:
 	Type *getBase() {
 		return base;
 	}
-	virtual QString generate();
 private:
 	QList<AttributeUse*> *attributes;
 	QString name;

@@ -15,6 +15,8 @@
 #include "attributeUse.h"
 #include "elementUse.h"
 
+#include "stringType.h"
+
 QHash<QString, Type*> types;
 QHash<QString, Attribute*> attrs;
 QHash<QString, Element*> eles;
@@ -68,13 +70,16 @@ void addElements(QDomElement &parent, ComplexType *type) {
 void prepareBuildInTypes() {
 	QString name;
 	name = longer("string", false);
-	types.insert(name, new SimpleType(name));
+	types.insert(name, new StringType("string"));
+	name = longer("normalized string", false);
+	types.insert(name, new StringType("normalized string"));
 	name = longer("token", false);
-	types.insert(name, new SimpleType(name));
-	name = longer("anyURI", false);
+	types.insert(name, new StringType("token"));
+
+	/*name = longer("anyURI", false);
 	types.insert(name, new SimpleType(name));
 	name = longer("nonNegativeInteger", false);
-	types.insert(name, new SimpleType(name));
+	types.insert(name, new SimpleType(name));*/
 }
 
 bool simpleTypeRestriction(QDomElement simpleType, QDomElement restriction) {

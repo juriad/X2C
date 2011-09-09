@@ -29,6 +29,9 @@ public:
 	virtual bool isSimpleValue();
 	virtual bool isList();
 	virtual bool isUnion();
+	/*virtual QString getDataType();
+	virtual QString generateControl(QString inputString);
+	virtual QString generateSetter(QString inputString, QString outputVariable);*/
 private:
 	SimpleType *item;
 };

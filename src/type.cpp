@@ -13,7 +13,3 @@ Type::Type(QString name, Type *base, bool simple) {
 	Type::simple = simple;
 	Type::attributes = new QList<AttributeUse*>();
 }
-
-QString Type::generate() {
-	return QString();
-}

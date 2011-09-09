@@ -19,6 +19,7 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 	ehpublic.append("bool " + methodName(name, "has") + "() {\n");
 	ehpublic.append("  return " + varName(name, "has", "Value") + ";\n");
 	ehpublic.append("}\n");
+	qDebug() <<dt;
 	ehpublic.append(dt + " " + methodName(name, "get") + "() {\n");
 	ehpublic.append("  return " + varName(name, QString(), "Value") + ";\n");
 	ehpublic.append("}\n");

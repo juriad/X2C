@@ -8,7 +8,7 @@ void VeryComplex::addAnon30(Anon30 * ele) {
   qDebug() << "Anon30";
 }
 void VeryComplex::initAnon30(){
-  qDebug() << "VeryComplex"<<"tns:anon30" <<"init";
+  qDebug() << "VeryComplex"<<"Anon30" <<"init";
   anon30List = QList<Anon30*>();
 }
 void VeryComplex::addSimpleElement(SimpleElement * ele) {
@@ -16,7 +16,7 @@ void VeryComplex::addSimpleElement(SimpleElement * ele) {
   qDebug() << "SimpleElement";
 }
 void VeryComplex::initSimpleElement(){
-  qDebug() << "VeryComplex"<<"tns:simpleElement" <<"init";
+  qDebug() << "VeryComplex"<<"SimpleElement" <<"init";
   simpleElementList = QList<SimpleElement*>();
 }
 void VeryComplex::addSimpleElementCustom(SimpleElementCustom * ele) {
@@ -24,7 +24,7 @@ void VeryComplex::addSimpleElementCustom(SimpleElementCustom * ele) {
   qDebug() << "SimpleElementCustom";
 }
 void VeryComplex::initSimpleElementCustom(){
-  qDebug() << "VeryComplex"<<"tns:simpleElementCustom" <<"init";
+  qDebug() << "VeryComplex"<<"SimpleElementCustom" <<"init";
   simpleElementCustomList = QList<SimpleElementCustom*>();
 }
 VeryComplex * VeryComplex::fromElement(QDomElement &element) {

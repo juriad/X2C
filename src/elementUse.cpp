@@ -8,45 +8,41 @@
 #include "elementUse.h"
 #include "utils.h"
 
-void ElementUse::generate(QString &className, QString &ehprivate,
+void ElementUse::generate(QString &cName, QString &ehprivate,
 		QString &ehpublic, QString &ehinclude, QString &ecpp,
 		QString &eccinclude) {
 	Element *e = getElement();
+	QString name = className(e->getName());
 
-	eccinclude.append("#include \"" + e->getClassName() + ".h\"\n");
-	ehinclude.append("#include \"" + e->getClassName() + ".h\"\n");
+	eccinclude.append("#include \"" + name + ".h\"\n");
+	ehinclude.append("#include \"" + name + ".h\"\n");
 
 	ehpublic.append(
-			"inline QList<" + e->getClassName() + "*> "
-					+ methodName(e->getName(), "get", "List") + "() {\n");
-	ehpublic.append(
-			"  return " + varName(e->getName(), QString(), "List") + ";\n");
+			"inline QList<" + name + "*> " + methodName(name, "get", "List")
+					+ "() {\n");
+	ehpublic.append("  return " + varName(name, QString(), "List") + ";\n");
 	ehpublic.append("}\n");
 	ehprivate.append(
-			"QList<" + e->getClassName() + "*> "
-					+ varName(e->getName(), QString(), "List") + ";\n");
+			"QList<" + name + "*> "
+					+ varName(name, QString(), "List") + ";\n");
 	ehprivate.append(
-			"void " + methodName(e->getName(), "add") + "(" + e->getClassName()
-					+ " * ele);\n");
+			"void " + methodName(name, "add") + "(" + name + " * ele);\n");
 	ecpp.append(
-			"void " + className + "::" + methodName(e->getName(), "add") + "("
-					+ e->getClassName() + " * ele) {\n");
-	ecpp.append(
-			"  " + varName(e->getName(), QString(), "List")
-					+ ".append(ele);\n");
-	ecpp.append("  qDebug() << \"" + e->getClassName() + "\";\n");
+			"void " + cName + "::" + methodName(name, "add") + "(" + name
+					+ " * ele) {\n");
+	ecpp.append("  " + varName(name, QString(), "List") + ".append(ele);\n");
+	ecpp.append("  qDebug() << \"" + name + "\";\n");
 	ecpp.append("}\n");
 
-	ehprivate.append("void " + methodName(e->getName(), "init") + "();\n");
+	ehprivate.append("void " + methodName(name, "init") + "();\n");
 	ecpp.append(
-			"void " + className + "::" + methodName(e->getName(), "init")
-					+ "(){\n");
+			"void " + cName + "::" + methodName(name, "init") + "(){\n");
 	ecpp.append(
-			"  qDebug() << \"" + className + "\"<<\"" + e->getName()
+			"  qDebug() << \"" + cName + "\"<<\"" + name
 					+ "\" <<\"init\";\n");
 	ecpp.append(
-			"  " + varName(e->getName(), QString(), "List") + " = QList<"
-					+ e->getClassName() + "*>();\n");
+			"  " + varName(name, QString(), "List") + " = QList<" + name
+					+ "*>();\n");
 	ecpp.append("}\n");
 
 }

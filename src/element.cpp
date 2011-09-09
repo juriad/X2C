@@ -20,10 +20,6 @@ Element::Element(QString name) {
 	setNoDefault();
 }
 
-QString Element::getClassName() {
-	return makeFirstUpper(unqualify(getName()));
-}
-
 static void saveToFile(QString file, QString &string) {
 	QFile f(file);
 	qDebug() << f.fileName();
@@ -83,7 +79,7 @@ void Element::generate() {
 		tt = tt->getBase();
 	} while (tt != NULL);
 
-	QString cname = getClassName();
+	QString cname = className(getName());
 
 	// generate attributes
 	QList<AttributeUse*> attributesValues = attributes.values();

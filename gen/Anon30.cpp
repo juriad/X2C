@@ -6,7 +6,7 @@ void Anon30::addAnon29(Anon29 * ele) {
   qDebug() << "Anon29";
 }
 void Anon30::initAnon29(){
-  qDebug() << "Anon30"<<"tns:anon29" <<"init";
+  qDebug() << "Anon30"<<"Anon29" <<"init";
   anon29List = QList<Anon29*>();
 }
 Anon30 * Anon30::fromElement(QDomElement &element) {

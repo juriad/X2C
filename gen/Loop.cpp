@@ -6,7 +6,7 @@ void Loop::addLoop(Loop * ele) {
   qDebug() << "Loop";
 }
 void Loop::initLoop(){
-  qDebug() << "Loop"<<"tns:loop" <<"init";
+  qDebug() << "Loop"<<"Loop" <<"init";
   loopList = QList<Loop*>();
 }
 Loop * Loop::fromElement(QDomElement &element) {
