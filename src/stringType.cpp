@@ -10,6 +10,7 @@
 QString StringType::getDataType() {
 	return "QString";
 }
+
 QString StringType::generateSetter(QString inputString,
 		QString outputVariable) {
 	if (getName() == "string") {
@@ -17,22 +18,24 @@ QString StringType::generateSetter(QString inputString,
 	} else if (getName() == "normalizedString") {
 		QString setter =
 				"QString normalized = " + inputString
-						+ ".replace(QChar(9), QChar(32)).replace(QChar(10), QChar(32)).replace(QChar(13), QChar(32));";
-		return outputVariable + " = normalized;";
+						+ ".replace(QChar(9), QChar(32)).replace(QChar(10), QChar(32)).replace(QChar(13), QChar(32));\n";
+		setter.append("  " + outputVariable + " = normalized;");
+		return setter;
 	} else {
 		// token
 		QString setter =
 				"QString normalized = " + inputString
 						+ ".replace(QChar(9), QChar(32)).replace(QChar(10), QChar(32)).replace(QChar(13), QChar(32));\n";
-		setter.append("QString trimmed = normalized.trimmed();\n");
+		setter.append("  QString trimmed = normalized.trimmed();\n");
 		setter.append(
-				"QString collapsed = trimmed.split(\" \", QString::SkipEmptyParts).join(" ");\n");
-		return outputVariable + " = collapsed;";
+				"  QString collapsed = trimmed.split(\" \", QString::SkipEmptyParts).join(\" \");\n");
+		setter.append("  " + outputVariable + " = collapsed;");
+		return setter;
 	}
 }
 
 QString StringType::generateControl(QString inputString) {
-	return "ok = true";
+	return "ok = true;";
 }
 
 QString StringType::generateInit(QString varName) {

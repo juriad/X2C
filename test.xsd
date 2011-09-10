@@ -4,7 +4,7 @@
 	<element name="root">
 		<complexType>
 			<sequence>
-				<element name="iinteger">
+				<element name="integer">
 					<simpleType>
 						<restriction base="integer"></restriction>
 					</simpleType>
@@ -14,7 +14,19 @@
 						<restriction base="unsignedShort"></restriction>
 					</simpleType>
 				</element>
+				<element name="alist">
+					<simpleType>
+						<list itemType="string">
+						</list>
+					</simpleType>
+				</element>
 				<element name="bbyte" type="byte">
+				</element>
+				<element name="list">
+					<simpleType>
+						<list itemType="boolean">
+						</list>
+					</simpleType>
 				</element>
 				<element name="llong">
 					<simpleType>
@@ -27,7 +39,21 @@
 						</list>
 					</simpleType>
 				</element>
+				<element name="stris" type="tns:strings"></element>
+				<element name="boolean">
+					<simpleType>
+						<restriction base="boolean"></restriction>
+					</simpleType>
+				</element>
 			</sequence>
 		</complexType>
 	</element>
+
+	<complexType name="strings">
+		<sequence>
+			<element name="tok" type="token"></element>
+			<element name="stri" type="string"></element>
+			<element name="norma" type="normalizedString"></element>
+		</sequence>
+	</complexType>
 </schema>

@@ -5,7 +5,7 @@ int main(int argc, char* argv[]) {
 	QFile file("/home/adam/programming/workspace/X2C/test.xml");
 	Root *r = Root::fromFile(file);
 	qDebug() << "read";
-	QList<Iinteger*> is = r->getIintegerList();
+	QList<Integer*> is = r->getIntegerList();
 	for (int i = 0; i < is.size(); i++) {
 		qDebug() << is.at(i)->getValue();
 	}

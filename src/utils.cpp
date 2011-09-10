@@ -5,20 +5,15 @@
  *      Author: Adam Juraszek
  */
 
-#include "utils.h"
 #include <QtCore/QtCore>
+#include "utils.h"
 #include "settings.h"
 
 QList<QDomElement> getAllElements(QDomElement &parent) {
 	QDomNodeList l = parent.childNodes();
 	QList<QDomElement> children;
 	for (int i = 0; i < l.size(); i++) {
-		if (l.at(i).isElement()) {
-			//qDebug() <<"#all"<<l.at(i).toElement().tagName();
-			children.append(l.at(i).toElement());
-		} else {
-			//qDebug() << l.at(i).nodeName()<<l.at(i).nodeType()<<l.at(i).nodeValue();
-		}
+		children.append(l.at(i).toElement());
 	}
 	return children;
 }

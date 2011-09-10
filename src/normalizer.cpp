@@ -5,11 +5,11 @@
  *      Author: Adam Juraszek
  */
 
+#include <QtCore/QtCore>
+#include <QDomDocument>
 #include "normalizer.h"
 #include "utils.h"
-#include <QDomDocument>
 #include "settings.h"
-#include <QtCore/QtCore>
 
 static void typeType(QDomElement &root, QDomElement type) {
 	static int number = 0;
@@ -76,6 +76,9 @@ static void refElement(QDomElement &root, QDomElement &ele) {
 	root.appendChild(ele);
 }
 
+/*
+ * iterates through tree and each local definition moves to root
+ */
 static void iterate(QDomElement &root, QDomElement &parent) {
 	QList<QDomElement> es = getAllElements(parent);
 	for (int i = 0; i < es.size(); i++) {
@@ -214,6 +217,10 @@ static void groups(QDomElement &root) {
 	}
 }
 
+/*
+ * restrictions are not supported
+ * everything restricted can be assigned to unrestricted variable
+ */
 static void removeRestrictionInners(QDomElement e) {
 	QList<QDomElement> es = getAllElements(e);
 

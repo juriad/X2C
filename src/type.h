@@ -19,7 +19,6 @@ public:
 	virtual ~Type() {
 	}
 	QList<AttributeUse*> *getAttributes() {
-		qDebug() << attributes->size();
 		return attributes;
 	}
 	void addAtribute(AttributeUse *attribute) {
@@ -28,10 +27,10 @@ public:
 	QString getName() {
 		return name;
 	}
-	virtual bool hasSimpleContent() {
+	bool hasSimpleContent() {
 		return simple;
 	}
-	virtual bool hasComplexContent() {
+	bool hasComplexContent() {
 		return !simple;
 	}
 	Type *getBase() {
@@ -41,7 +40,6 @@ private:
 	QList<AttributeUse*> *attributes;
 	QString name;
 	bool simple;
-protected:
 	Type *base;
 };
 

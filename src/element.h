@@ -20,9 +20,6 @@ public:
 		return name;
 	}
 	void setType(Type *type) {
-		if (type == NULL) {
-			qDebug() << "null:" << getName();
-		}
 		Element::type = type;
 	}
 	void setBase(Element *base) {
@@ -51,7 +48,6 @@ public:
 	Type *getType() {
 		return type;
 	}
-	QString getClassName();
 	void generate();
 private:
 	QString name;

@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:root xmlns:tns="http://www.example.org/test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/test test.xsd ">
-	<tns:iinteger>25</tns:iinteger>
+	<tns:integer>25</tns:integer>
+	<tns:llist>1 2 3</tns:llist>
+	<tns:alist>seznam google</tns:alist>
+	<tns:list>true 1 0 yes</tns:list>
 	<tns:uunsignedShort>67</tns:uunsignedShort>
 	<tns:bbyte>12</tns:bbyte>
 	<tns:llong>999333999666</tns:llong>
 	<tns:llist>1 2 3</tns:llist>
+	<tns:stris>
+		<tns:tok> lal 	la
+			la
+		</tns:tok>
+		<tns:stri>
+			sdc	 sd
+
+		</tns:stri>
+		<tns:norma>
+			as 			sd
+			zdc
+		</tns:norma>
+	</tns:stris>
+	<tns:bbyte>12</tns:bbyte>
+	<tns:bbyte>12</tns:bbyte>
+	<tns:llong>999333999666</tns:llong>
 </tns:root>

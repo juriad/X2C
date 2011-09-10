@@ -5,17 +5,16 @@
  *      Author: Adam Juraszek
  */
 
-#include "generator.h"
-
-#include "objects.h"
 #include <QtCore/QtCore>
+#include "generator.h"
+#include "objects.h"
 
 static void generateClass(Element* ele) {
 	ele->generate();
 }
 
 void generateClasses() {
-	QHash<QString, Element*> elements = getEles();
+	QHash<QString, Element*> elements = getElements();
 	for (int i = 0; i < elements.size(); i++) {
 		generateClass(elements.values().at(i));
 	}

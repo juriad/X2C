@@ -1,5 +1,5 @@
 /*
- * stringType.h
+ * booleanType.h
  *
  *  Created on: 9.9.2011
  *      Author: Adam Juraszek

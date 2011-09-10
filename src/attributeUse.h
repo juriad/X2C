@@ -7,8 +7,8 @@
 
 #ifndef ATTRIBUTEUSE_H_
 #define ATTRIBUTEUSE_H_
-#include <QtCore/QtCore>
 
+#include <QtCore/QtCore>
 #include "attribute.h"
 
 class AttributeUse {

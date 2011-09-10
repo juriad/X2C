@@ -137,21 +137,22 @@ void Element::generate() {
 	ecppinclude.append("\n");
 
 	ecpp.prepend(ecppinclude);
+	// static fromElement
 	ecpp.append(
 			cname + " * " + cname + "::fromElement(QDomElement &element) {\n");
 	ecpp.append("  qDebug() << element.localName() <<\"fromElement\";\n");
 	ecpp.append(
 			"  " + cname + " *" + varName(cname) + " = new " + cname + "();\n");
-	ecpp.append("  QDomNodeList list = element.childNodes();\n");
-	ecpp.append("  for (int i = 0; i < list.size(); i++) {\n");
-	ecpp.append("    if (list.at(i).isElement()) {\n");
-	ecpp.append("      QDomElement e = list.at(i).toElement();\n");
+	ecpp.append("  QDomNodeList list_ = element.childNodes();\n");
+	ecpp.append("  for (int i = 0; i < list_.size(); i++) {\n");
+	ecpp.append("    if (list_.at(i).isElement()) {\n");
+	ecpp.append("      QDomElement e = list_.at(i).toElement();\n");
 	ecpp.append("      " + varName(cname) + "->addSubElement(e);\n");
 	ecpp.append("    }\n");
 	ecpp.append("  }\n");
-	ecpp.append("  QDomNamedNodeMap attrs = element.attributes();\n");
-	ecpp.append("  for(int i = 0; i<attrs.size(); i++) {\n");
-	ecpp.append("    QDomAttr a = attrs.item(i).toAttr();\n");
+	ecpp.append("  QDomNamedNodeMap attrs_ = element.attributes();\n");
+	ecpp.append("  for(int i = 0; i<attrs_.size(); i++) {\n");
+	ecpp.append("    QDomAttr a = attrs_.item(i).toAttr();\n");
 	ecpp.append("    " + varName(cname) + "->setAttribute(a);\n");
 	ecpp.append("  }\n");
 	if (t->hasSimpleContent()) {
@@ -159,6 +160,8 @@ void Element::generate() {
 	}
 	ecpp.append("  return " + varName(cname) + ";\n");
 	ecpp.append("}\n");
+
+	// addSubElement
 	ecpp.append("void " + cname + "::addSubElement( QDomElement &element) {\n");
 	ecpp.append("  qDebug() << element.localName() <<\"subElement\";\n");
 	for (int i = 0; i < elementsNames.size(); i++) {
@@ -172,6 +175,8 @@ void Element::generate() {
 		ecpp.append("  }\n");
 	}
 	ecpp.append("}\n");
+
+	// setAttribute
 	ecpp.append("void " + cname + "::setAttribute( QDomAttr &attr) {\n");
 
 	for (int i = 0; i < attributesNames.size(); i++) {
@@ -185,6 +190,7 @@ void Element::generate() {
 	}
 	ecpp.append("}\n");
 
+	// static loadXmlDocument
 	ecpp.append(
 			"QDomDocument * " + cname + "::loadXmlDocument(QFile & file) {\n");
 	ecpp.append("  if (!file.exists()) {\n");
@@ -206,6 +212,8 @@ void Element::generate() {
 	ecpp.append("  }\n");
 	ecpp.append("  return doc;\n");
 	ecpp.append("}\n");
+
+	// static fromFile
 	ecpp.append(cname + "  * " + cname + "::fromFile(QFile & file) {\n");
 	ecpp.append(
 			"  QDomDocument *doc = " + cname + "::loadXmlDocument(file);\n");

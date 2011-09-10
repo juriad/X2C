@@ -7,6 +7,7 @@
 
 #ifndef NORMALIZER_H_
 #define NORMALIZER_H_
+
 #include <QDomDocument>
 
 void globalizeAndName(QDomDocument &doc);

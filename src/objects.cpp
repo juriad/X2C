@@ -21,7 +21,7 @@
 
 QHash<QString, Type*> types;
 QHash<QString, Attribute*> attrs;
-QHash<QString, Element*> eles;
+QHash<QString, Element*> elements;
 
 QHash<QString, Type*> &getTypes() {
 	return types;
@@ -31,8 +31,8 @@ QHash<QString, Attribute*> &getAttrs() {
 	return attrs;
 }
 
-QHash<QString, Element*> &getEles() {
-	return eles;
+QHash<QString, Element*> &getElements() {
+	return elements;
 }
 
 void addAttributes(QDomElement &parent, Type *type) {
@@ -55,7 +55,7 @@ void addElements(QDomElement &parent, ComplexType *type) {
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement ee = es.at(i);
 		if (ee.localName() == "element") {
-			Element *e = eles.value(ee.attribute("ref"));
+			Element *e = elements.value(ee.attribute("ref"));
 			ElementUse *eu = new ElementUse(e);
 			if (ee.hasAttribute("default")) {
 				eu->setDefault(ee.attribute("default"));
@@ -442,7 +442,7 @@ void makeEmptyElements(QDomElement root) {
 		} else if (e.hasAttribute("fixed")) {
 			ele->setDefault(e.attribute("fixed"));
 		}
-		eles.insert(ele->getName(), ele);
+		elements.insert(ele->getName(), ele);
 	}
 }
 
@@ -450,7 +450,7 @@ void makeElementBowels(QDomElement root) {
 	QList<QDomElement> es = getElements(root, longer("element", false));
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement e = es.at(i);
-		Element *ele = eles.value(longer(e.attribute("name"), true));
+		Element *ele = elements.value(longer(e.attribute("name"), true));
 		qDebug() << e.attribute("name") << e.attribute("type");
 		qDebug() << types.value(e.attribute("type"));
 		ele->setType(types.value(e.attribute("type")));

@@ -8,8 +8,8 @@
 #ifndef LISTTYPE_H_
 #define LISTTYPE_H_
 
-#include "simpleType.h"
 #include <QtCore/QtCore>
+#include "simpleType.h"
 
 class ListType: public SimpleType {
 public:
@@ -34,7 +34,7 @@ public:
 	virtual QString generateSetter(QString inputString, QString outputVariable);
 	virtual QString generateInit(QString varName);
 private:
-	QString toDt(QString input, QString output, QString error);
+	QString toDataType(QString input, QString output, QString error);
 	SimpleType *item;
 };
 

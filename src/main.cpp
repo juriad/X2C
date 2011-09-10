@@ -124,7 +124,7 @@ void printAttrs() {
 
 void printEles() {
 	qDebug() << "elements";
-	QList<Element*> vs = getEles().values();
+	QList<Element*> vs = getElements().values();
 	for (int i = 0; i < vs.size(); i++) {
 		Element* t = vs.at(i);
 		QString s = t->getName();

@@ -21,8 +21,8 @@ QString NumberType::getDataType() {
 	} else if (getName() == "short" || getName() == "unsignedShort") {
 		dt = "short";
 	} else if (getName() == "byte" || getName() == "unsignedByte") {
-		dt = "short";
 		// cannot work with char
+		dt = "short";
 	} else if (getName() == "decimal" || getName() == "double") {
 		dt = "double";
 	} else if (getName() == "float") {
@@ -38,46 +38,52 @@ QString NumberType::getDataType() {
 }
 QString NumberType::generateSetter(QString inputString,
 		QString outputVariable) {
-	QString setter = "QString trimmed = " + inputString + ".trimmed();\n";
-	setter.append("bool ok;\n");
-	setter.append(toDt("trimmed", "number", "&ok"));
-	setter.append(outputVariable + " = number;");
+	QString setter = "  QString trimmed = " + inputString + ".trimmed();\n";
+	setter.append("  bool ok;\n");
+	setter.append("  " + toDataType("trimmed", "number", "&ok") + "\n");
+	setter.append("  " + outputVariable + " = number;");
 	return setter;
 }
 
 QString NumberType::generateControl(QString inputString) {
-	QString control = "QString trimmed = " + inputString + ".trimmed();\n";
-	control.append(toDt("trimmed", "number", "&ok"));
+	QString control = "  QString trimmed = " + inputString + ".trimmed();\n";
+	control.append("  " + toDataType("trimmed", "number", "&ok"));
 	return control;
 }
 
 /*
  * input is previously defined string variable
  * output is dt variable
- * error is previously defined bool* variable
+ * error is previously defined bool* variable -- rather positive
  */
-QString NumberType::toDt(QString input, QString output, QString error) {
+QString NumberType::toDataType(QString input, QString output, QString error) {
 	QString dt = getDataType();
 	if (dt == "long long") {
-		return dt + " " + output + " = " + input + ".toLongLong(" + error
-				+ ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toLongLong(" + error
+				+ ");";
 	} else if (dt == "unsigned long long") {
-		return dt + " " + output + " = " + input + ".toULongLong(" + error
-				+ ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toULongLong("
+				+ error + ");";
 	} else if (dt == "int") {
-		return dt + " " + output + " = " + input + ".toInt(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toInt(" + error
+				+ ");";
 	} else if (dt == "unsigned int") {
-		return dt + " " + output + " = " + input + ".toUInt(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toUInt(" + error
+				+ ");";
 	} else if (dt == "short") {
-		return dt + " " + output + " = " + input + ".toShort(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toShort(" + error
+				+ ");";
 	} else if (dt == "unsigned short") {
-		return dt + " " + output + " = " + input + ".toUShort(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toUShort(" + error
+				+ ");";
 	} else if (dt == "double") {
-		return dt + " " + output + " = " + input + ".toDouble(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toDouble(" + error
+				+ ");";
 	} else if (dt == "float") {
-		return dt + " " + output + " = " + input + ".toFloat(" + error + ");\n";
+		return "  " + dt + " " + output + " = " + input + ".toFloat(" + error
+				+ ");";
 	}
-	return "*(" + error + ") = false;\n";
+	return "*(" + error + ") = false;";
 }
 
 QString NumberType::generateInit(QString varName) {

@@ -22,7 +22,7 @@ public:
 	virtual QString generateSetter(QString inputString, QString outputVariable);
 	virtual QString generateInit(QString varName);
 private:
-	QString toDt(QString input, QString output, QString error);
+	QString toDataType(QString input, QString output, QString error);
 };
 
 #endif /* NUMBERTYPE_H_ */

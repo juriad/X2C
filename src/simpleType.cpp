@@ -10,26 +10,24 @@
 bool SimpleType::isSimpleValue() {
 	return true;
 }
+
 bool SimpleType::isList() {
 	return false;
 }
+
 bool SimpleType::isUnion() {
 	return false;
 }
+
 QString SimpleType::getDataType() {
-	qDebug() << getName();
-	if (getBase() != NULL) {
-		qDebug() << getBase()->getName();
-		return ((SimpleType*) getBase())->getDataType();
-	} else {
-		qDebug() << "falling back to " << "QString";
-		return "QString";
-	}
+	return ((SimpleType*) getBase())->getDataType();
 }
-// save (can be set (true)), (cannot be set (false)) to previously defined variable ok
+
+// save if inputString can be assigned to previously defined variable ok
 QString SimpleType::generateControl(QString inputString) {
 	return ((SimpleType*) getBase())->generateControl(inputString);
 }
+
 QString SimpleType::generateSetter(QString inputString,
 		QString outputVariable) {
 	return ((SimpleType*) getBase())->generateSetter(inputString,
