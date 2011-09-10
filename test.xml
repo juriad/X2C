@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:root xmlns:tns="http://www.example.org/test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/test test.xsd ">
+	<tns:iinteger>25</tns:iinteger>
+	<tns:uunsignedShort>67</tns:uunsignedShort>
+	<tns:bbyte>12</tns:bbyte>
+	<tns:llong>999333999666</tns:llong>
+	<tns:llist>1 2 3</tns:llist>
+</tns:root>

@@ -20,6 +20,7 @@ public:
 	virtual QString getDataType();
 	virtual QString generateControl(QString inputString);
 	virtual QString generateSetter(QString inputString, QString outputVariable);
+	virtual QString generateInit(QString varName);
 };
 
 #endif /* STRINGTYPE_H_ */

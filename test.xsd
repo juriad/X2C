@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/test"
+	xmlns:tns="http://www.example.org/test" elementFormDefault="qualified">
+	<element name="root">
+		<complexType>
+			<sequence>
+				<element name="iinteger">
+					<simpleType>
+						<restriction base="integer"></restriction>
+					</simpleType>
+				</element>
+				<element name="uunsignedShort">
+					<simpleType>
+						<restriction base="unsignedShort"></restriction>
+					</simpleType>
+				</element>
+				<element name="bbyte" type="byte">
+				</element>
+				<element name="llong">
+					<simpleType>
+						<restriction base="long"></restriction>
+					</simpleType>
+				</element>
+				<element name="llist">
+					<simpleType>
+						<list itemType="integer">
+						</list>
+					</simpleType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

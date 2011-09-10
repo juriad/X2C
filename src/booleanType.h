@@ -5,24 +5,22 @@
  *      Author: Adam Juraszek
  */
 
-#ifndef NUMBERTYPE_H_
-#define NUMBERTYPE_H_
+#ifndef BOOLEANTYPE_H_
+#define BOOLEANTYPE_H_
 
 #include "simpleType.h"
 
-class NumberType: public SimpleType {
+class BooleanType: public SimpleType {
 public:
-	NumberType(QString name) :
-			SimpleType(name, NULL) {
+	BooleanType() :
+			SimpleType("boolean", NULL) {
 	}
-	virtual ~NumberType() {
+	virtual ~BooleanType() {
 	}
 	virtual QString getDataType();
 	virtual QString generateControl(QString inputString);
 	virtual QString generateSetter(QString inputString, QString outputVariable);
 	virtual QString generateInit(QString varName);
-private:
-	QString toDt(QString input, QString output, QString error);
 };
 
-#endif /* NUMBERTYPE_H_ */
+#endif /* BOOLEANTYPE_H_ */

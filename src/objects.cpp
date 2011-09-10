@@ -16,6 +16,8 @@
 #include "elementUse.h"
 
 #include "stringType.h"
+#include "numberType.h"
+#include "booleanType.h"
 
 QHash<QString, Type*> types;
 QHash<QString, Attribute*> attrs;
@@ -69,17 +71,55 @@ void addElements(QDomElement &parent, ComplexType *type) {
 
 void prepareBuildInTypes() {
 	QString name;
+	// strings
 	name = longer("string", false);
 	types.insert(name, new StringType("string"));
-	name = longer("normalized string", false);
-	types.insert(name, new StringType("normalized string"));
+	name = longer("normalizedString", false);
+	types.insert(name, new StringType("normalizedString"));
 	name = longer("token", false);
 	types.insert(name, new StringType("token"));
 
-	/*name = longer("anyURI", false);
-	types.insert(name, new SimpleType(name));
+	// anyURI - the only container abstract enough is QString
+	name = longer("anyURI", false);
+	types.insert(name, new StringType("anyURI"));
+
+	// boolean
+	name = longer("boolean", false);
+	types.insert(name, new BooleanType());
+
+	// numbers
+	name = longer("integer", false);
+	types.insert(name, new NumberType("integer"));
+	name = longer("nonPositiveInteger", false);
+	types.insert(name, new NumberType("nonPositiveInteger"));
+	name = longer("negariveInteger", false);
+	types.insert(name, new NumberType("negariveInteger"));
 	name = longer("nonNegativeInteger", false);
-	types.insert(name, new SimpleType(name));*/
+	types.insert(name, new NumberType("nonNegativeInteger"));
+	name = longer("positiveInteger", false);
+	types.insert(name, new NumberType("positiveInteger"));
+	name = longer("long", false);
+	types.insert(name, new NumberType("long"));
+	name = longer("unsignedLong", false);
+	types.insert(name, new NumberType("unsignedLong"));
+	name = longer("int", false);
+	types.insert(name, new NumberType("int"));
+	name = longer("unsignedInt", false);
+	types.insert(name, new NumberType("unsignedInt"));
+	name = longer("short", false);
+	types.insert(name, new NumberType("short"));
+	name = longer("unsignedShort", false);
+	types.insert(name, new NumberType("unsignedShort"));
+	name = longer("byte", false);
+	types.insert(name, new NumberType("byte"));
+	name = longer("unsignedByte", false);
+	types.insert(name, new NumberType("unsignedByte"));
+	name = longer("decimal", false);
+	types.insert(name, new NumberType("decimal"));
+	name = longer("double", false);
+	types.insert(name, new NumberType("double"));
+	name = longer("float", false);
+	types.insert(name, new NumberType("float"));
 }
 
 bool simpleTypeRestriction(QDomElement simpleType, QDomElement restriction) {

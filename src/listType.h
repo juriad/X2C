@@ -29,10 +29,12 @@ public:
 	virtual bool isSimpleValue();
 	virtual bool isList();
 	virtual bool isUnion();
-	/*virtual QString getDataType();
+	virtual QString getDataType();
 	virtual QString generateControl(QString inputString);
-	virtual QString generateSetter(QString inputString, QString outputVariable);*/
+	virtual QString generateSetter(QString inputString, QString outputVariable);
+	virtual QString generateInit(QString varName);
 private:
+	QString toDt(QString input, QString output, QString error);
 	SimpleType *item;
 };
 

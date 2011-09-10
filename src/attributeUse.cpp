@@ -19,7 +19,8 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 	ehpublic.append("bool " + methodName(name, "has") + "() {\n");
 	ehpublic.append("  return " + varName(name, "has", "Value") + ";\n");
 	ehpublic.append("}\n");
-	qDebug() <<dt;
+	ehpublic.append(
+			"bool " + methodName(name, "canBe", "Set") + "(QString input);\n");
 	ehpublic.append(dt + " " + methodName(name, "get") + "() {\n");
 	ehpublic.append("  return " + varName(name, QString(), "Value") + ";\n");
 	ehpublic.append("}\n");
@@ -32,16 +33,24 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 	ecpp.append(
 			"void " + className + "::" + methodName(name, "set")
 					+ "(QString string) {\n");
-	ecpp.append("  " + varName(name, QString(), "Value") + " = string;\n");
+	ecpp.append(
+			"  "
+					+ st->generateSetter("string",
+							varName(name, QString(), "Value")) + "\n");
+	ecpp.append("  " + varName(name, "has", "Value") + " = true;\n");
 	ecpp.append("}\n");
 
 	ecpp.append(
 			"void " + className + "::" + methodName(name, "init") + "(){\n");
 	ecpp.append(
-			"  qDebug() << \"" + className + "\"<<\"" + name
-					+ "\" <<\"init\";\n");
-	ecpp.append(
-			"  " + varName(name, QString(), "Value") + " = " + dt + "();\n");
+			"  " + st->generateInit(varName(name, QString(), "Value")) + "\n");
 	ecpp.append("}\n");
 
+	ecpp.append(
+			"bool " + className + "::" + methodName(name, "canBe", "Set")
+					+ "(QString input) {\n");
+	ecpp.append("  bool ok;\n");
+	ecpp.append("  " + st->generateControl("input") + "\n");
+	ecpp.append("  return ok;\n");
+	ecpp.append("}\n");
 }
