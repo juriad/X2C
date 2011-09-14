@@ -27,6 +27,9 @@ QString ListType::generateSetter(QString inputString, QString outputVariable) {
 	QString control = "  bool outerOk;\n";
 	// make list variable safe
 	control.append("  " + toDataType(inputString, "list_", "&outerOk") + "\n");
+	control.append("  if(!outerOk) {\n");
+	control.append("    return;\n");
+	control.append("  }\n");
 	control.append("  " + outputVariable + " = list_;");
 	return control;
 }
@@ -35,7 +38,10 @@ QString ListType::generateControl(QString inputString) {
 	// variable ok is redefined inside
 	QString control = "  bool outerOk;\n";
 	// make list variable safe
-	control.append("  " + toDataType(inputString, "list_", "&outerOk") + "\n");
+	control.append(
+			"  "
+					+ toDataType(inputString, "list_", "&outerOk").replace(
+							"return", "return false") + "\n");
 	control.append("  ok = outerOk;");
 	return control;
 }
@@ -55,7 +61,7 @@ QString ListType::toDataType(QString input, QString output, QString error) {
 	setter.append(
 			"  " + getDataType() + " " + output + " = " + getDataType()
 					+ "();\n");
-	setter.append("  *(" + error + ") = true;\n");
+	setter.append("  *(" + error + ") = !trimmed.isEmpty();\n");
 	setter.append("  for(int i = 0; i < parts.size(); i++) {\n");
 	setter.append("    bool ok;");
 	setter.append("    " + getItem()->generateControl("parts.at(i)") + "\n");

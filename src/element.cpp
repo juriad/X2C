@@ -41,6 +41,9 @@ void Element::generate() {
 	if (t->hasSimpleContent()) {
 		SimpleType *st = (SimpleType*) t;
 		Attribute *a = new Attribute("value");
+		if (hasDefault()) {
+			a->setDefault(getDefault());
+		}
 		a->setSimpleType(st);
 		AttributeUse *au = new AttributeUse(a);
 		t->addAtribute(au);
@@ -69,7 +72,6 @@ void Element::generate() {
 		for (int i = 0; i < aus->size(); i++) {
 			AttributeUse *au = aus->at(i);
 			QString name = au->getAttribute()->getName();
-			qDebug() << name;
 			if (!attributes.contains(name)) {
 				attributes.insert(name, au);
 			} else {
@@ -140,7 +142,6 @@ void Element::generate() {
 	// static fromElement
 	ecpp.append(
 			cname + " * " + cname + "::fromElement(QDomElement &element) {\n");
-	ecpp.append("  qDebug() << element.localName() <<\"fromElement\";\n");
 	ecpp.append(
 			"  " + cname + " *" + varName(cname) + " = new " + cname + "();\n");
 	ecpp.append("  QDomNodeList list_ = element.childNodes();\n");
@@ -163,7 +164,9 @@ void Element::generate() {
 
 	// addSubElement
 	ecpp.append("void " + cname + "::addSubElement( QDomElement &element) {\n");
-	ecpp.append("  qDebug() << element.localName() <<\"subElement\";\n");
+	if (Settings::settings()->isDebug()) {
+		ecpp.append("  qDebug() << element.localName() <<\"subElement\";\n");
+	}
 	for (int i = 0; i < elementsNames.size(); i++) {
 		QString cn = className(elementsNames.at(i));
 		ecpp.append(
@@ -194,19 +197,23 @@ void Element::generate() {
 	ecpp.append(
 			"QDomDocument * " + cname + "::loadXmlDocument(QFile & file) {\n");
 	ecpp.append("  if (!file.exists()) {\n");
-	ecpp.append("    qDebug() << \"doesn't exist\";\n");
+	if (Settings::settings()->isDebug()) {
+		ecpp.append("    qDebug() << \"doesn't exist\";\n");
+	}
 	ecpp.append("    return NULL;\n");
 	ecpp.append("  }\n");
 	ecpp.append("  QString errorStr;\n");
 	ecpp.append("  int errorLine;\n");
 	ecpp.append("  int errorColumn;\n");
-	ecpp.append("  QDomDocument *doc = new QDomDocument;\n");
+	ecpp.append("  QDomDocument *doc = new QDomDocument();\n");
 	ecpp.append(
 			"  if (!doc->setContent(&file, true, &errorStr, &errorLine, &errorColumn)) {\n");
-	ecpp.append(
-			"    qDebug()<< QString(\"Error > %1 < in file %2 on line %3, column %4\").arg(\n");
-	ecpp.append(
-			"      errorStr).arg(file.fileName()).arg(errorLine).arg(errorColumn);\n");
+	if (Settings::settings()->isDebug()) {
+		ecpp.append(
+				"    qDebug()<< QString(\"Error > %1 < in file %2 on line %3, column %4\").arg(\n");
+		ecpp.append(
+				"      errorStr).arg(file.fileName()).arg(errorLine).arg(errorColumn);\n");
+	}
 	ecpp.append("    delete doc;\n");
 	ecpp.append("    doc = NULL;\n");
 	ecpp.append("  }\n");
@@ -217,11 +224,14 @@ void Element::generate() {
 	ecpp.append(cname + "  * " + cname + "::fromFile(QFile & file) {\n");
 	ecpp.append(
 			"  QDomDocument *doc = " + cname + "::loadXmlDocument(file);\n");
+	ecpp.append("  if(doc==NULL) {\n");
+	ecpp.append("    return NULL;\n");
+	ecpp.append("  }\n");
 	ecpp.append("  QDomElement root = doc->documentElement();\n");
 	ecpp.append("  return " + cname + "::fromElement(root);\n");
 	ecpp.append("}\n");
 
-	QDir *d = Settings::settings()->getDir();
-	saveToFile(d->filePath(cname + ".h"), eh);
-	saveToFile(d->filePath(cname + ".cpp"), ecpp);
+	QString d = Settings::settings()->getDir();
+	saveToFile(d + "/" + cname + ".h", eh);
+	saveToFile(d + "/" + cname + ".cpp", ecpp);
 }

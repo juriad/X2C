@@ -14,6 +14,7 @@ Settings::Settings() {
 	schemaPrefix = QString();
 	userPrefix = QString();
 	dir = new QDir();
+	debug = false;
 }
 
 Settings *Settings::settings() {

@@ -1,0 +1,123 @@
+X2C = XML Schema to C++ classes
+
+Different approaches
+--------------------
+It is a very common situation: you have some xml file and you need to read it and process.
+Generaly, there are three different approches:
+1/ SAX
+Read it as any other file: line by line and it is up to you to parse it.
+It is useful if such xml file is too big to keep it in memory or you want only small parts of it.
+2/ DOM
+Uses its parser and creates a new universal object for each element and attribute it finds.
+These objects doesn't represent structure of xml file enought to provide static type control.
+3/ Real objects
+Assignes each element and attribute to its own type with structure providing exactly those methods defined by XML Schema.
+Usually this approche requires two phases:
+	1) read schema, build data model, generate data structures, save them to files
+	2) read file valid to schema, assign each element to class, attribute to fields and manage subelements
+
+I chose the last one because it provides the most human interface (if you think everything is object)
+
+What it does
+------------
+You run the first program with arguments:
+	schema file which describes whole structure, there are some limitations, but most of them will work
+	user namespace - namespace of all structures in schema you define - can be determined from header but it is to complicated
+	schema namespace - namespace which holds definition of schema itself
+	output directory - where will be generated files placed
+It does some magic and suddenly files in output directory appears.
+
+These files contains C++ classes which can be instantited simply by providing xml file to the root class factory method.
+Classes themselves does whole job to read xml file, parse it and save all information to their fileds.
+Usage is the simpleast possible, one command: RootElement::fromFile(file);
+
+Usage scope
+-----------
+This application doesn't try to provide whole Object XML Mapping, but it should be sufficient for simple cases like parsing configuration or maybe some lite implementations of REST or RPC client.
+I tried to make its usage the simplest possible and in comparison with some draft, this final version doesn't generate any inheritance or polymorphism code which makes it easy to patch if necessary.
+
+How it does
+-----------
+First it uses DOM parser from Qt xml module and loads whole schema to memory.
+There is nothing to comment, those 10 lines were taken from Qt Example.
+
+Then it does some normalization:
+1/ removes content of <restriction> which holds value constrains.
+No constrains are supported because it would require two classes with same name and one is subclass of the other.
+This change should preserve 
+I said no! If xml file is valid against schema, constrains has been already used and no subtyping is necessary.
+2/ iterates through whole tree and moves definitions to root.
+There are elements and attributes defined deep inside tree in place they are used, it would be hard for me to process such schema.
+Element definition is moved to root child and replaced by element reference; Attributes are moved in the same way.
+This change can be done only if element/attribute names are unique.
+Deep type definition are local and anonymouse, so it is necessary to name them; names usues its own namespace $userNamespace:anon and are numbered.
+Type definition is moved to root child and replaced by type attribute in parent.
+3/ destroys <group>s and <attributeGroup>s; elements and attributes defined inside are copied to places where such group is referenced.
+All these operations keeps schema valid with one exception: anonymouse types namespace.
+They are necessary to provide simple and unique way of processing each schema.
+After these operations all definitions are children of <schema> element.
+This is partly the reason why restricting is limited to trivial "rename", root would contaion two similar elements with different definition.
+
+Next data model is created, it contains most information from schema and makes following steps independent on schema file.
+1/ Elements and Attributes empty objects are created, because they will be referenced from types.
+References on this level are pointer based, not id based as in schema file.
+They just have their name and nothing else, type will be assigned later.
+2/ Types are created, they have their unique name.
+Iterating through their subtree elements and attribute refs are added to type model.
+More about types in special chapter.
+In fact type doesn't have elements and attributes but references to them.
+This provides possibility to override some properties:
+Element can have default value and Element reference has another default value which overrides the element's one.
+3/ Types are assigned to elements and attributes.
+This completes data model.
+
+The last piece generates files which of c++ classes.
+There are many ways how such classes could look like, after considering them, I chose 1 class = 1 element.
+An attribute is field member of class and text value in element acts acts like attribute with name "value".
+Others are discussed later.
+This narrows the way how it is implemented and provide information enough to generate class.
+Because minOccures, maxOccures attributes are not supported, each element appear acts as if: minOccures=0, maxOccures=unbounded.
+So elements of the same type are stored in one QList, and that way is determined the way how they are used.
+Each attribute and content of element (which is converted to attribute) may appear at most once.
+So attributes are simple string fields and converted to proper data type fields and also have flag if they are present.
+Finally there are some factory methods which cretates a new object from file (user use) or from DOM element (recurse).
+
+Handling subelements is easy: no data type conversion is necessary and error checking has been done by schema.
+Attributes are rather complicated: there must be some rules, how string value is converted to destinantion data type.
+I tried to provide very wide range of data types extended by non standard values ("yes" is a valid boolean).
+If simple types are complicated, list types are pure magic: they require usage of simple types code which they wrap into their own code.
+Unfortunately, calling methods in this situation is impossible because I could not know their generic name.
+There might be a way how to solve this clearly: each element would have methods for each data type:
+bool to${dataType}(QString input, void *output);
+But it is too late now and it would require to rewrite most of generation part and introduce some inheritance in generated code.
+Unions are not implemented, they would require to generate some extra classes for each union type and some mechanism to determine which data type the item is.
+It would make whole application bigger and buggier; and one more reason: those xml files breakes object oriented design.
+
+Types
+-----
+Concept of types differs from that used in xml.
+Here, simple type means a type which holds value.
+Complex type holds subelements and no value, mixed content is not supported at all.
+Both kinds of types can have attributes; <complexType> with <simpleContent> which adds some attributes is still simple type.
+Usage simple type with attribute as a type of attribute is permited on schema level.
+
+Inner model of subelements is implemented in the simpest way; it can hold list of each of subelements.
+It doesn't respect minOccures, maxOccures -- it ignores them because it would be very hard to determine actual edges in cases which involves <choice> elements.
+Either way, this implementation provides some functionality which I hope is universal enough for all target applications.
+
+
+Classes
+-------
+During designing this program I went throught many schemas of generated code.
+Here I will try to comment some and describe why it was not chosen.
+1/ Classes will copy structure of data model
+There will be super class Type which will provide abstract type-relative methods and its descendants SimpleType, ComplexType.
+Another super classes would be Element and Attribute, target elements would inherit from element or attribute and one type.
+Types would make their own hierarchy according to extensions and restrictions.
+This might look nice, but its maintaince would be a nightmare, it would produce twice more classes and patching them to specific task would be impossible. 
+2/ Similar to the current one with convertors
+There would be only one supertype, which would provide convertors from string to all basic simple types.
+Checking and maybe general tasks like loading xml file would be implemented there as well.
+Each particular element would be descendant of this class and would use it methods to do most of work.
+Also patching would be easy, just reimplement virtual method in particular element, this seems to be quite clean.
+As I said a few paragraphs higher, I discovered this option when I was to finish the current one.

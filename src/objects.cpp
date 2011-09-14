@@ -18,6 +18,7 @@
 #include "stringType.h"
 #include "numberType.h"
 #include "booleanType.h"
+#include "dateType.h"
 
 QHash<QString, Type*> types;
 QHash<QString, Attribute*> attrs;
@@ -120,6 +121,14 @@ void prepareBuildInTypes() {
 	types.insert(name, new NumberType("double"));
 	name = longer("float", false);
 	types.insert(name, new NumberType("float"));
+
+	// dates
+	name = longer("date", false);
+	types.insert(name, new DateType("date"));
+	name = longer("time", false);
+	types.insert(name, new DateType("time"));
+	name = longer("dateTime", false);
+	types.insert(name, new DateType("dateTime"));
 }
 
 bool simpleTypeRestriction(QDomElement simpleType, QDomElement restriction) {
@@ -451,8 +460,6 @@ void makeElementBowels(QDomElement root) {
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement e = es.at(i);
 		Element *ele = elements.value(longer(e.attribute("name"), true));
-		qDebug() << e.attribute("name") << e.attribute("type");
-		qDebug() << types.value(e.attribute("type"));
 		ele->setType(types.value(e.attribute("type")));
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:root xmlns:tns="http://www.example.org/test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/test test.xsd ">
-	<tns:integer>25</tns:integer>
+	<tns:integer></tns:integer>
 	<tns:llist>1 2 3</tns:llist>
 	<tns:alist>seznam google</tns:alist>
 	<tns:list>true 1 0 yes</tns:list>
@@ -22,7 +22,21 @@
 			zdc
 		</tns:norma>
 	</tns:stris>
-	<tns:bbyte>12</tns:bbyte>
+	<tns:bbyte>
+	
+	12
+	</tns:bbyte>
 	<tns:bbyte>12</tns:bbyte>
 	<tns:llong>999333999666</tns:llong>
+	<tns:dates ate="bla bla">
+	<tns:date>
+	201109
+	</tns:date>
+	<tns:date>
+	2011-09-12Z
+	</tns:date>
+	<tns:time>12:32</tns:time>
+	<tns:time>12:32:32 +100</tns:time>
+	<tns:dateTime>200007281733 BST</tns:dateTime>
+	</tns:dates>
 </tns:root>

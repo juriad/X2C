@@ -8,6 +8,7 @@
 #include "attributeUse.h"
 #include "utils.h"
 #include "simpleType.h"
+#include "settings.h"
 
 void AttributeUse::generate(QString &className, QString &ehprivate,
 		QString &ehpublic, QString &ehinclude, QString &ecpp,
@@ -19,6 +20,7 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 
 	// data model, ends with underscore
 	ehprivate.append(dt + " " + varName(name, QString(), "Value") + ";\n");
+	ehprivate.append("QString " + varName(name, QString(), "RawValue") + ";\n");
 	ehprivate.append("bool " + varName(name, "has", "Value") + ";\n");
 
 	// has ###, returns true also if default exists
@@ -43,16 +45,26 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 	ehpublic.append("  return " + varName(name, QString(), "Value") + ";\n");
 	ehpublic.append("}\n");
 
-	// set ###, doesn't do tests
+	// getRaw ###, returns default if exists or value if set
+	ehpublic.append("QString " + methodName(name, "getRaw") + "() {\n");
+	ehpublic.append("  return " + varName(name, QString(), "RawValue") + ";\n");
+	ehpublic.append("}\n");
+
+	// set ###, doesn't necessarily do tests
 	ehprivate.append("void " + methodName(name, "set") + "(QString input);\n");
 	ecpp.append(
 			"void " + className + "::" + methodName(name, "set")
 					+ "(QString input) {\n");
 	// inserts setting mechanism, expects string variable input and model variable
 	ecpp.append(
-			"  " + st->generateSetter("input", varName(name, QString(), "Value"))
-					+ "\n");
+			"  "
+					+ st->generateSetter("input",
+							varName(name, QString(), "Value")) + "\n");
 	ecpp.append("  " + varName(name, "has", "Value") + " = true;\n");
+	ecpp.append("  " + varName(name, QString(), "RawValue") + " = input;\n");
+	if (Settings::settings()->isDebug()) {
+		ecpp.append("qDebug() << \"set attribute\" << \"" + name + "\";\n");
+	}
 	ecpp.append("}\n");
 
 	// default value handling, defaults in attribute are copied to attributeUse
@@ -68,9 +80,10 @@ void AttributeUse::generate(QString &className, QString &ehprivate,
 	ecpp.append(
 			"void " + className + "::" + methodName(name, "init") + "() {\n");
 	// inserts initializer of model
-	ecpp.append("  " + st->generateInit(varName(name, QString(), "Value")) + "\n");
+	ecpp.append(
+			"  " + st->generateInit(varName(name, QString(), "Value")) + "\n");
 	if (hasDf) {
-		ecpp.append("  " + methodName(name, "set") + "(" + df + ");\n");
+		ecpp.append("  " + methodName(name, "set") + "(\"" + df + "\");\n");
 	}
 	ecpp.append("}\n");
 

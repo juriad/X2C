@@ -8,9 +8,8 @@
 #include "elementUse.h"
 #include "utils.h"
 
-void ElementUse::generate(QString &cName, QString &ehprivate,
-		QString &ehpublic, QString &ehinclude, QString &ecpp,
-		QString &eccinclude) {
+void ElementUse::generate(QString &cName, QString &ehprivate, QString &ehpublic,
+		QString &ehinclude, QString &ecpp, QString &eccinclude) {
 	Element *e = getElement();
 	QString name = className(e->getName());
 
@@ -19,8 +18,7 @@ void ElementUse::generate(QString &cName, QString &ehprivate,
 
 	// model variable
 	ehprivate.append(
-			"QList<" + name + "*> "
-					+ varName(name, QString(), "List") + ";\n");
+			"QList<" + name + "*> " + varName(name, QString(), "List") + ";\n");
 
 	// get ### List
 	ehpublic.append(
@@ -40,8 +38,7 @@ void ElementUse::generate(QString &cName, QString &ehprivate,
 
 	// init ###
 	ehprivate.append("void " + methodName(name, "init") + "();\n");
-	ecpp.append(
-			"void " + cName + "::" + methodName(name, "init") + "() {\n");
+	ecpp.append("void " + cName + "::" + methodName(name, "init") + "() {\n");
 	ecpp.append(
 			"  " + varName(name, QString(), "List") + " = QList<" + name
 					+ "*>();\n");

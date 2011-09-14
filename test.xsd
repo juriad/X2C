@@ -4,7 +4,7 @@
 	<element name="root">
 		<complexType>
 			<sequence>
-				<element name="integer">
+				<element name="integer" default="325">
 					<simpleType>
 						<restriction base="integer"></restriction>
 					</simpleType>
@@ -45,9 +45,19 @@
 						<restriction base="boolean"></restriction>
 					</simpleType>
 				</element>
+				<element name="dates" type="tns:dates"></element>
 			</sequence>
 		</complexType>
 	</element>
+
+	<complexType name="dates">
+		<sequence>
+			<element name="date" type="date"></element>
+			<element name="time" type="time"></element>
+			<element name="dateTime" type="dateTime"></element>
+		</sequence>
+		<attribute name="ate" type="string"></attribute>
+	</complexType>
 
 	<complexType name="strings">
 		<sequence>
@@ -55,5 +65,6 @@
 			<element name="stri" type="string"></element>
 			<element name="norma" type="normalizedString"></element>
 		</sequence>
+		<attribute name="attr" type="date" default="2011-10-1"></attribute>
 	</complexType>
 </schema>

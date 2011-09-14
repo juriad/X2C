@@ -41,8 +41,8 @@ public:
 		dfState = 1;
 		df = def;
 	}
-	void generate(QString &className, QString &ehprivate, QString &ehpublic, QString &ehinclude,
-			QString &ecpp, QString &eccinclude);
+	void generate(QString &className, QString &ehprivate, QString &ehpublic,
+			QString &ehinclude, QString &ecpp, QString &eccinclude);
 private:
 	Attribute *attr;
 	QString df;

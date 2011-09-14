@@ -12,7 +12,8 @@ QT += xml
 QT -= qui
 
 # Input
-HEADERS += src/booleanType.h \
+HEADERS += src/dateType.h \
+    src/booleanType.h \
     src/attribute.h \
     src/attributeUse.h \
     src/complexType.h \
@@ -29,7 +30,8 @@ HEADERS += src/booleanType.h \
     src/type.h \
     src/unionType.h \
     src/utils.h
-SOURCES += src/booleanType.cpp \
+SOURCES += src/dateType.cpp \
+    src/booleanType.cpp \
     src/attribute.cpp \
     src/attributeUse.cpp \
     src/complexType.cpp \

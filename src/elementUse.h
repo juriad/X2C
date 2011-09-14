@@ -40,8 +40,8 @@ public:
 	Element *getElement() {
 		return ele;
 	}
-	void generate(QString &className, QString &ehprivate, QString &ehpublic, QString &ehinclude,
-			QString &ecpp, QString &eccinclude);
+	void generate(QString &className, QString &ehprivate, QString &ehpublic,
+			QString &ehinclude, QString &ecpp, QString &eccinclude);
 private:
 	Element *ele;
 	QString df;

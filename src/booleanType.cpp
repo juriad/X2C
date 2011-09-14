@@ -13,6 +13,9 @@ QString BooleanType::getDataType() {
 QString BooleanType::generateSetter(QString inputString,
 		QString outputVariable) {
 	QString setter = "  QString b = " + inputString + ".trimmed();\n";
+	setter.append("  if(b.isEmpty()) {\n");
+	setter.append("    return;\n");
+	setter.append("  }\n");
 	setter.append(
 			"  if(b.startsWith(\"t\") || b.startsWith(\"y\") || b.startsWith(\"1\")) {\n");
 	setter.append("  " + outputVariable + " = true;\n");
@@ -23,7 +26,7 @@ QString BooleanType::generateSetter(QString inputString,
 }
 
 QString BooleanType::generateControl(QString inputString) {
-	return "  ok = true;";
+	return "  ok = !" + inputString + ".trimmed().isEmpty();";
 }
 
 QString BooleanType::generateInit(QString varName) {

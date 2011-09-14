@@ -7,6 +7,7 @@
 
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
+
 #include <QtCore/QtCore>
 
 class Settings {
@@ -24,11 +25,17 @@ public:
 	void setUserPrefix(QString prefix) {
 		userPrefix = prefix;
 	}
-	QDir* getDir() {
+	QString getDir() {
 		return dir;
 	}
-	void setDir(QDir* dir) {
+	void setDir(QString dir) {
 		Settings::dir = dir;
+	}
+	bool isDebug() {
+		return debug;
+	}
+	void setDebug(bool debug) {
+		Settings::debug = debug;
 	}
 
 private:
@@ -36,7 +43,8 @@ private:
 	static Settings *inst;
 	QString schemaPrefix;
 	QString userPrefix;
-	QDir *dir;
+	QString dir;
+	bool debug;
 	Settings();
 	~Settings();
 };

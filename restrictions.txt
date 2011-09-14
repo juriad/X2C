@@ -1,4 +1,0 @@
-elementy a atributy nesmi zacinat na "get", "set", "has", "is"
-nesmi koncit na "List"
-nesmi se jmenovat "SubElement", "Attribute", "element"
-nesmi koncit na _

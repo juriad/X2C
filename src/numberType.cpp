@@ -40,6 +40,9 @@ QString NumberType::generateSetter(QString inputString,
 		QString outputVariable) {
 	QString setter = "  QString trimmed = " + inputString + ".trimmed();\n";
 	setter.append("  bool ok;\n");
+	setter.append("  if(trimmed.isEmpty()) {\n");
+	setter.append("    return;\n");
+	setter.append("  }\n");
 	setter.append("  " + toDataType("trimmed", "number", "&ok") + "\n");
 	setter.append("  " + outputVariable + " = number;");
 	return setter;
@@ -47,7 +50,11 @@ QString NumberType::generateSetter(QString inputString,
 
 QString NumberType::generateControl(QString inputString) {
 	QString control = "  QString trimmed = " + inputString + ".trimmed();\n";
-	control.append("  " + toDataType("trimmed", "number", "&ok"));
+	control.append("  if(trimmed.isEmpty()) {\n");
+	control.append("    ok = false;\n");
+	control.append("  } else {\n");
+	control.append("  " + toDataType("trimmed", "number", "&ok") + "\n");
+	control.append("  }");
 	return control;
 }
 
