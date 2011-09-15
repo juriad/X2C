@@ -188,7 +188,7 @@
 	<group name="g2">
 		<sequence>
 			<choice minOccurs="0">
-				<group ref="tns:g1"></group>
+				<group ref="tns:ga"></group>
 			</choice>
 		</sequence>
 	</group>
@@ -239,7 +239,7 @@
 	<element name="internationalPrice">
 		<complexType>
 			<complexContent>
-				<restriction base="anyType">
+				<restriction base="string">
 					<attribute name="currency" type="string" />
 					<attribute name="value" type="decimal" />
 				</restriction>

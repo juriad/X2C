@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:attributeGroup name="personattrgroup">
 	<xs:attribute name="firstname" type="xs:string"/>
 	<xs:attribute name="lastname" type="xs:string"/>
@@ -9,3 +10,4 @@
 		<xs:attributeGroup ref="personattrgroup"/>
 	</xs:complexType>
 </xs:element>
+</xs:schema>

@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:element name="password">
 	<xs:simpleType>
 		<xs:restriction base="xs:string">
@@ -6,3 +7,4 @@
 		</xs:restriction>
 	</xs:simpleType>
 </xs:element>
+</xs:schema>

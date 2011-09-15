@@ -20,10 +20,11 @@ QList<QDomElement> getAllElements(QDomElement &parent) {
 
 QList<QDomElement> getElements(QDomElement parent, QString tagName) {
 	QDomNodeList l = parent.childNodes();
+	qDebug() << tagName;
 	QList<QDomElement> children;
 	for (int i = 0; i < l.size(); i++) {
 		if (l.at(i).isElement()) {
-			if (l.at(i).toElement().tagName() == tagName) {
+			if (l.at(i).toElement().localName() == tagName) {
 				children.append(l.at(i).toElement());
 			}
 		}
@@ -62,7 +63,7 @@ QString longer(QString userName, bool user) {
 	} else {
 		prefix = Settings::settings()->getSchemaPrefix();
 	}
-	if (prefix != "") {
+	if (!prefix.isEmpty()) {
 		userName = prefix + ":" + userName;
 	}
 	return userName;

@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:element name="shoesize" type="shoetype"/>
 
 <xs:complexType name="shoetype">
@@ -7,3 +8,4 @@
 		</xs:extension>
 	</xs:simpleContent>
 </xs:complexType>
+</xs:schema>

@@ -37,7 +37,7 @@ QHash<QString, Element*> &getElements() {
 }
 
 void addAttributes(QDomElement &parent, Type *type) {
-	QList<QDomElement> as = getElements(parent, longer("attribute", false));
+	QList<QDomElement> as = getElements(parent, "attribute");
 	for (int i = 0; i < as.size(); i++) {
 		QDomElement ae = as.at(i);
 		Attribute *a = attrs.value(ae.attribute("ref"));
@@ -418,7 +418,7 @@ bool complexType(QDomElement complexType) {
 }
 
 void makeEmptyAttributes(QDomElement root) {
-	QList<QDomElement> as = getElements(root, longer("attribute", false));
+	QList<QDomElement> as = getElements(root, "attribute");
 	for (int i = 0; i < as.size(); i++) {
 		QDomElement a = as.at(i);
 		Attribute *attr = new Attribute(longer(a.attribute("name"), true));
@@ -432,7 +432,7 @@ void makeEmptyAttributes(QDomElement root) {
 }
 
 void makeAttributeBowels(QDomElement root) {
-	QList<QDomElement> as = getElements(root, longer("attribute", false));
+	QList<QDomElement> as = getElements(root, "attribute");
 	for (int i = 0; i < as.size(); i++) {
 		QDomElement a = as.at(i);
 		Attribute *attr = attrs.value(longer(a.attribute("name"), true));
@@ -441,7 +441,8 @@ void makeAttributeBowels(QDomElement root) {
 }
 
 void makeEmptyElements(QDomElement root) {
-	QList<QDomElement> es = getElements(root, longer("element", false));
+	QList<QDomElement> es = getElements(root, "element");
+	qDebug() << es.size();
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement e = es.at(i);
 		Element *ele = new Element(longer(e.attribute("name"), true));
@@ -456,10 +457,12 @@ void makeEmptyElements(QDomElement root) {
 }
 
 void makeElementBowels(QDomElement root) {
-	QList<QDomElement> es = getElements(root, longer("element", false));
+	QList<QDomElement> es = getElements(root, "element");
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement e = es.at(i);
 		Element *ele = elements.value(longer(e.attribute("name"), true));
+		qDebug() << e.attribute("type");
+		qDebug() << types.value(e.attribute("type"));
 		ele->setType(types.value(e.attribute("type")));
 	}
 }

@@ -53,6 +53,7 @@ This change can be done only if element/attribute names are unique.
 Deep type definition are local and anonymouse, so it is necessary to name them; names usues its own namespace $userNamespace:anon and are numbered.
 Type definition is moved to root child and replaced by type attribute in parent.
 3/ destroys <group>s and <attributeGroup>s; elements and attributes defined inside are copied to places where such group is referenced.
+This step is not implemented, it is commented out because it doesn't work in some scenarios: DOM manipulating methods just block whole application; couldn't resolve where the problem is located, those tests are marked .group.
 All these operations keeps schema valid with one exception: anonymouse types namespace.
 They are necessary to provide simple and unique way of processing each schema.
 After these operations all definitions are children of <schema> element.
@@ -105,7 +106,6 @@ Inner model of subelements is implemented in the simpest way; it can hold list o
 It doesn't respect minOccures, maxOccures -- it ignores them because it would be very hard to determine actual edges in cases which involves <choice> elements.
 Either way, this implementation provides some functionality which I hope is universal enough for all target applications.
 
-
 Classes
 -------
 During designing this program I went throught many schemas of generated code.
@@ -121,3 +121,8 @@ Checking and maybe general tasks like loading xml file would be implemented ther
 Each particular element would be descendant of this class and would use it methods to do most of work.
 Also patching would be easy, just reimplement virtual method in particular element, this seems to be quite clean.
 As I said a few paragraphs higher, I discovered this option when I was to finish the current one.
+
+Tests
+-----
+You can run tests.sh which tests all *.xsd tests, test marked with 0 is OK.
+Some tests are disabled either with .blocked = use another namespace schema, or .group = use groups.

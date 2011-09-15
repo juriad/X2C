@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:group name="persongroup">
 	<xs:sequence>
 		<xs:element name="firstname" type="xs:string"/>
@@ -14,3 +15,4 @@
 		<xs:element name="country" type="xs:string"/>
 	</xs:sequence>
 </xs:complexType>
+</xs:schema>

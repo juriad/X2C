@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:element name="age">
 	<xs:simpleType>
 		<xs:restriction base="xs:integer">
@@ -6,3 +7,4 @@
 		</xs:restriction>
 	</xs:simpleType>
 </xs:element>
+</xs:schema>

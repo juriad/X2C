@@ -68,7 +68,7 @@ QDomDocument * loadXmlDocument(QFile * file) {
 void makeGlobalTypes(QDomElement root) {
 	QQueue<QDomElement> waitPoints;
 
-	QList<QDomElement> ss = getElements(root, longer("simpleType", false));
+	QList<QDomElement> ss = getElements(root, "simpleType");
 	for (int i = 0; i < ss.size(); i++) {
 		QDomElement s = ss.at(i);
 		waitPoints.enqueue(s);
@@ -81,7 +81,7 @@ void makeGlobalTypes(QDomElement root) {
 		}
 	}
 
-	QList<QDomElement> cs = getElements(root, longer("complexType", false));
+	QList<QDomElement> cs = getElements(root, "complexType");
 	for (int i = 0; i < cs.size(); i++) {
 		QDomElement c = cs.at(i);
 		waitPoints.enqueue(c);
@@ -100,8 +100,8 @@ int main(int argc, char *argv[]) {
 				<< "<schema namespace>" << "<destination dir>";
 		return EXIT_FAILURE;
 	}
-	Settings::settings()->setUserPrefix(QString(argv[2]));
-	Settings::settings()->setSchemaPrefix(QString(argv[3]));
+	Settings::settings()->setUserPrefix(QString(argv[2]).isEmpty()?QString():QString(argv[2]));
+	Settings::settings()->setSchemaPrefix(QString(argv[3]).isEmpty()?QString():QString(argv[3]));
 	Settings::settings()->setDir(QString(argv[4]));
 
 	prepareBuildInTypes();
@@ -114,6 +114,11 @@ int main(int argc, char *argv[]) {
 	} else {
 		globalizeAndName(*doc);
 		QDomElement root = doc->documentElement();
+
+		QList<QDomElement> els = getAllElements(root);
+		for (int i = 0; i < els.size(); i++) {
+			qDebug() << els.at(i).attribute("name");
+		}
 
 		makeEmptyAttributes(root);
 		makeEmptyElements(root);

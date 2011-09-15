@@ -1,0 +1,13 @@
+#include <QtCore/QtCore>
+#include "${root}.h"
+
+int main(int argc, char* argv[]) {
+	QString f = QString(argv[1]);
+	QFile file(f);
+	${root} *r = ${root}::fromFile(file);
+	if(r==NULL) {
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}

@@ -16,15 +16,14 @@ static void typeType(QDomElement &root, QDomElement type) {
 	qDebug() << "type type" << number;
 	QString name = QString("anon:anon%1").arg(number++);
 	type.setAttributeNS(QString(), "name", name);
-	QString prefix = Settings::settings()->getUserPrefix();
 	QDomElement parent = type.parentNode().toElement();
 	if (parent.localName() == "list") {
 		type.parentNode().toElement().setAttributeNS(QString(), "itemType",
-				prefix + ":" + name);
+				longer(name, true));
 	} else if (parent.localName() == "attribute"
 			|| parent.localName() == "element") {
 		type.parentNode().toElement().setAttributeNS(QString(), "type",
-				prefix + ":" + name);
+				longer(name, true));
 	} else if (parent.localName() == "union") {
 		QDomElement parent = type.parentNode().toElement();
 		QString attr;
@@ -37,7 +36,7 @@ static void typeType(QDomElement &root, QDomElement type) {
 			attr = QString();
 		}
 		type.parentNode().toElement().setAttributeNS(QString(), "memberTypes",
-				attr + prefix + ":" + name);
+				attr + longer(name, true));
 	} else {
 		qDebug() << "unsupported parent of type";
 	}
@@ -98,6 +97,7 @@ static void iterate(QDomElement &root, QDomElement &parent) {
 	}
 }
 
+/*
 static bool unrefAGs(QDomElement &parent,
 		QHash<QString, QDomElement*> &flatAttrs) {
 	QList<QDomElement> as = getElements(parent,
@@ -138,16 +138,19 @@ static bool unrefGroups(QDomElement &parent,
 		}
 
 		if (flatGroups.contains(g.attribute("ref"))) {
+			qDebug() << "unreffing";
 			QDomElement *ggroup = flatGroups.value(g.attribute("ref"));
 			QList<QDomElement> ggroups = getAllElements(*ggroup);
 			for (int i = 0; i < ggroups.size(); i++) {
+				qDebug() << "inner";
 				QDomElement ge = ggroups.at(i);
 				if (ge.localName() == "all" || ge.localName() == "choice"
 						|| ge.localName() == "sequence") {
-					parent.insertBefore(ge, g);
+					qDebug() << "pre replaced";
+					parent.replaceChild(ge, g);
+					qDebug() <<"replaced";
 				}
 			}
-			parent.removeChild(g);
 		} else {
 			gg = false;
 		}
@@ -162,23 +165,27 @@ static bool iterateGroups(QDomElement &parent,
 	if (!unrefGroups(parent, flatGroups)) {
 		gg = false;
 	}
+	qDebug() << "after unrefGroups";
 
 	unrefAGs(parent, flatAttrs);
+	qDebug() << "after unrefAGs";
 
 	QList<QDomElement> es = getAllElements(parent);
 	for (int i = 0; i < es.size(); i++) {
 		QDomElement e = es.at(i);
+		qDebug() << "processing child" << e.localName() << e.attribute("name");
 		if (!iterateGroups(e, flatGroups, flatAttrs)) {
 			gg = false;
 		}
 	}
+	qDebug() << "before return";
 	return gg;
 }
 
 static void groups(QDomElement &root) {
 	qDebug("attrGroups");
 	QQueue<QDomElement> as = QQueue<QDomElement>();
-	QList<QDomElement> aas = getElements(root, longer("attributeGroup", false));
+	QList<QDomElement> aas = getElements(root, "attributeGroup");
 	for (int i = 0; i < aas.size(); i++) {
 		as.enqueue(aas.at(i));
 	}
@@ -195,27 +202,32 @@ static void groups(QDomElement &root) {
 
 	qDebug("groups");
 	QQueue<QDomElement> es = QQueue<QDomElement>();
-	QList<QDomElement> ees = getElements(root, longer("group", false));
+	QList<QDomElement> ees = getElements(root, "group");
 	for (int i = 0; i < ees.size(); i++) {
 		es.enqueue(ees.at(i));
+		qDebug() << "init enqueue" << ees.at(i).attribute("name");
 	}
 	QHash<QString, QDomElement*> flatGroups;
 
 	while (es.size() > 0) {
 		QDomElement g = es.dequeue();
+		qDebug() << "dequeue" << g.localName() << g.attribute("name");
 		if (iterateGroups(g, flatGroups, flatAGs)) {
 			flatGroups.insert(longer(g.attribute("name"), true), &g);
+			qDebug() << "completed";
 		} else {
 			es.enqueue(g);
+			qDebug() << "requeued";
 		}
 	}
 
-	QList<QDomElement> cs = getElements(root, longer("complexType", false));
+	qDebug("iterateGroups free");
+	QList<QDomElement> cs = getElements(root, "complexType");
 	for (int i = 0; i < ees.size(); i++) {
 		QDomElement c = cs.at(i);
 		iterateGroups(c, flatGroups, flatAGs);
 	}
-}
+}*/
 
 /*
  * restrictions are not supported
@@ -237,7 +249,7 @@ void globalizeAndName(QDomDocument & doc) {
 	QDomElement e = doc.documentElement();
 	removeRestrictionInners(e);
 	iterate(e, e);
-	groups(e);
+	//groups(e);
 	qDebug("globalized");
 }
 

@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:element name="car">
 	<xs:simpleType>
 		<xs:restriction base="xs:string">
@@ -7,3 +8,4 @@
 		</xs:restriction>
 	</xs:simpleType>
 </xs:element>
+</xs:schema>

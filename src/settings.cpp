@@ -13,7 +13,7 @@ QMutex *Settings::mutex = new QMutex();
 Settings::Settings() {
 	schemaPrefix = QString();
 	userPrefix = QString();
-	dir = new QDir();
+	dir = QString();
 	debug = false;
 }
 

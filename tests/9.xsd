@@ -1,3 +1,4 @@
+<xs:schema>
 <xs:element name="product">
 	<xs:complexType>
 		<xs:complexContent>
@@ -7,3 +8,4 @@
 		</xs:complexContent>
 	</xs:complexType>
 </xs:element>
+</xs:schema>
