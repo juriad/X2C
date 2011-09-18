@@ -143,23 +143,23 @@ void Element::generate() {
 	ecpp.append(
 			cname + " * " + cname + "::fromElement(QDomElement &element) {\n");
 	ecpp.append(
-			"  " + cname + " *" + varName(cname) + " = new " + cname + "();\n");
+			"  " + cname + " *" + varName(cname, QString(), "_") + " = new " + cname + "();\n");
 	ecpp.append("  QDomNodeList list_ = element.childNodes();\n");
 	ecpp.append("  for (int i = 0; i < list_.size(); i++) {\n");
 	ecpp.append("    if (list_.at(i).isElement()) {\n");
 	ecpp.append("      QDomElement e = list_.at(i).toElement();\n");
-	ecpp.append("      " + varName(cname) + "->addSubElement(e);\n");
+	ecpp.append("      " + varName(cname, QString(), "_") + "->addSubElement(e);\n");
 	ecpp.append("    }\n");
 	ecpp.append("  }\n");
 	ecpp.append("  QDomNamedNodeMap attrs_ = element.attributes();\n");
 	ecpp.append("  for(int i = 0; i<attrs_.size(); i++) {\n");
 	ecpp.append("    QDomAttr a = attrs_.item(i).toAttr();\n");
-	ecpp.append("    " + varName(cname) + "->setAttribute(a);\n");
+	ecpp.append("    " + varName(cname, QString(), "_") + "->setAttribute(a);\n");
 	ecpp.append("  }\n");
 	if (t->hasSimpleContent()) {
-		ecpp.append("  " + varName(cname) + "->setValue(element.text());\n");
+		ecpp.append("  " + varName(cname, QString(), "_") + "->setValue(element.text());\n");
 	}
-	ecpp.append("  return " + varName(cname) + ";\n");
+	ecpp.append("  return " + varName(cname, QString(), "_") + ";\n");
 	ecpp.append("}\n");
 
 	// addSubElement
@@ -197,9 +197,7 @@ void Element::generate() {
 	ecpp.append(
 			"QDomDocument * " + cname + "::loadXmlDocument(QFile & file) {\n");
 	ecpp.append("  if (!file.exists()) {\n");
-	if (Settings::settings()->isDebug()) {
-		ecpp.append("    qDebug() << \"doesn't exist\";\n");
-	}
+	ecpp.append("    qDebug() << \"doesn't exist\";\n");
 	ecpp.append("    return NULL;\n");
 	ecpp.append("  }\n");
 	ecpp.append("  QString errorStr;\n");
@@ -208,12 +206,10 @@ void Element::generate() {
 	ecpp.append("  QDomDocument *doc = new QDomDocument();\n");
 	ecpp.append(
 			"  if (!doc->setContent(&file, true, &errorStr, &errorLine, &errorColumn)) {\n");
-	if (Settings::settings()->isDebug()) {
-		ecpp.append(
-				"    qDebug()<< QString(\"Error > %1 < in file %2 on line %3, column %4\").arg(\n");
-		ecpp.append(
-				"      errorStr).arg(file.fileName()).arg(errorLine).arg(errorColumn);\n");
-	}
+	ecpp.append(
+			"    qDebug()<< QString(\"Error > %1 < in file %2 on line %3, column %4\").arg(\n");
+	ecpp.append(
+			"      errorStr).arg(file.fileName()).arg(errorLine).arg(errorColumn);\n");
 	ecpp.append("    delete doc;\n");
 	ecpp.append("    doc = NULL;\n");
 	ecpp.append("  }\n");
